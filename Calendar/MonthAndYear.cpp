@@ -16,8 +16,6 @@ MonthAndYear::MonthAndYear(int month, int year, sf::Font &font)
 	textMonth.setCharacterSize(42);
 	textMonth.setFillColor(Purple);
 
-		//Auto capslock
-	for (auto& c : textStringMonth[month]) c = toupper(c);
 	textMonth.setString(textStringMonth[month]);
 
 	textMonth.setPosition(601.0f - (textMonth.getGlobalBounds().width), (83.0f/2.0f) - (textMonth.getGlobalBounds().height/2.0f));
@@ -32,9 +30,60 @@ MonthAndYear::MonthAndYear(int month, int year, sf::Font &font)
 
 	//Buttons
 
-	this->texture.loadFromFile("Assets/MonthYearButtons.png");
-	buttonLeft.setSize(sf::Vector2f(40.0f, 40.0f));
-	buttonLeft.setTexture(&texture);
-	buttonLeft.setTextureRect(sf::IntRect(0, 0, 130, 148));
-	buttonLeft.setPosition(textMonth.getPosition().x - buttonLeft.getSize().x - 10.0f, (83.0f / 2.0f) - (buttonLeft.getSize().y / 2.0f) + 5.0f);
+		//Right
+
+		this->texture.loadFromFile("Assets/MonthYearButtons.png");
+		buttonRight.setSize(sf::Vector2f(30.0f, 30.0f));
+		buttonRight.setTexture(&texture);
+		buttonRight.setTextureRect(sf::IntRect(0, 0, 135, 152));
+		buttonRight.setPosition((textYear.getPosition().x + textYear.getGlobalBounds().width) + buttonRight.getSize().x + 10.0f, (83.0f / 2.0f) - (buttonRight.getSize().y / 2.0f) + 6.0f);
+
+		//Left
+
+		this->texture.loadFromFile("Assets/MonthYearButtons.png");
+		buttonLeft.setSize(sf::Vector2f(30.0f, 30.0f));
+		buttonLeft.setTexture(&texture);
+		buttonLeft.setTextureRect(sf::IntRect(135, 0, 135, 152));
+		buttonLeft.setPosition((textMonth.getPosition().x) - buttonLeft.getSize().x - 10.0f, (83.0f / 2.0f) - (buttonLeft.getSize().y / 2.0f) + 6.0f);
+}
+
+void MonthAndYear::Update(sf::RenderWindow& window)
+{
+	if (sf::Mouse::getPosition(window).x > buttonLeft.getGlobalBounds().left && sf::Mouse::getPosition(window).x < (buttonLeft.getGlobalBounds().left + buttonLeft.getGlobalBounds().width) && sf::Mouse::getPosition(window).y > buttonLeft.getGlobalBounds().top && sf::Mouse::getPosition(window).y < (buttonLeft.getGlobalBounds().top + buttonLeft.getGlobalBounds().height))
+	{
+		buttonLeft.setTextureRect(sf::IntRect(135, 152, 135, 152));
+		if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
+		{
+			this->month--;
+			if (month > 12)
+				month = 1;
+			if (month < 1)
+				month = 12;
+
+			textMonth.setString(textStringMonth[month]);
+		}
+	}
+	else
+	{
+		buttonLeft.setTextureRect(sf::IntRect(135, 0, 135, 152));
+	}
+
+	if (sf::Mouse::getPosition(window).x > buttonRight.getGlobalBounds().left && sf::Mouse::getPosition(window).x < (buttonRight.getGlobalBounds().left + buttonRight.getGlobalBounds().width) && sf::Mouse::getPosition(window).y > buttonRight.getGlobalBounds().top && sf::Mouse::getPosition(window).y < (buttonRight.getGlobalBounds().top + buttonRight.getGlobalBounds().height))
+	{
+		buttonRight.setTextureRect(sf::IntRect(0, 152, 135, 152));
+		if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
+		{
+			this->month++;
+			if (month > 12)
+				month = 1;
+			if (month < 1)
+				month = 12;
+
+			textMonth.setString(textStringMonth[month]);
+		}
+	}
+	else
+	{
+		buttonRight.setTextureRect(sf::IntRect(0, 0, 135, 152));
+	}
 }

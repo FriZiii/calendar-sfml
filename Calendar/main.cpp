@@ -19,7 +19,7 @@ int main()
     sf::Font font; font.loadFromFile("Fonts/WILD_WORLD.otf");
 
     //Month and Year
-    MonthAndYear monthAndYear(5, 2023, font);
+    MonthAndYear monthAndYear(8, 2023, font);
     
     //Days of the week
     std::vector<DaysOfTheWeek>daysoftheweek;
@@ -63,6 +63,8 @@ int main()
         for (Button& button : button)
             button.Update(window);
 
+        monthAndYear.Update(window);
+
         //Draw
         window.clear();
 
@@ -82,6 +84,7 @@ int main()
 
         for (Button& button : button)
             button.Draw(window);
+
         window.display();
     }
 
