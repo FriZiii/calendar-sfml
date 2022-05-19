@@ -4,9 +4,6 @@ MonthAndYear::MonthAndYear(int month, int year, sf::Font &font)
 {
 	this->month = month;
 	this->year = year;
-
-	textStringYear = std::to_string(year);
-
 	this->font = font;
 
 	//Month
@@ -21,6 +18,7 @@ MonthAndYear::MonthAndYear(int month, int year, sf::Font &font)
 	textMonth.setPosition(601.0f - (textMonth.getGlobalBounds().width), (83.0f/2.0f) - (textMonth.getGlobalBounds().height/2.0f));
 
 	//Year
+	textStringYear = std::to_string(year);
 	textYear.setFont(font);
 	textYear.setCharacterSize(42);
 	textYear.setFillColor(sf::Color::Black);
@@ -49,19 +47,28 @@ MonthAndYear::MonthAndYear(int month, int year, sf::Font &font)
 
 void MonthAndYear::Update(sf::RenderWindow& window)
 {
+	sf::Event event{};
+
 	if (sf::Mouse::getPosition(window).x > buttonLeft.getGlobalBounds().left && sf::Mouse::getPosition(window).x < (buttonLeft.getGlobalBounds().left + buttonLeft.getGlobalBounds().width) && sf::Mouse::getPosition(window).y > buttonLeft.getGlobalBounds().top && sf::Mouse::getPosition(window).y < (buttonLeft.getGlobalBounds().top + buttonLeft.getGlobalBounds().height))
 	{
 		buttonLeft.setTextureRect(sf::IntRect(135, 152, 135, 152));
-		if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
-		{
-			this->month--;
-			if (month > 12)
-				month = 1;
-			if (month < 1)
-				month = 12;
 
-			textMonth.setString(textStringMonth[month]);
+		if (window.pollEvent(event))
+		{
+			if (event.type == event.MouseButtonReleased && event.mouseButton.button == sf::Mouse::Left)
+			{
+				this->month--;
+				if (month < 1)
+				{
+					month = 12;
+					year--;
+					textStringYear = std::to_string(year);
+					textYear.setString(textStringYear);
+				}
+				textMonth.setString(textStringMonth[month]);
+			}
 		}
+
 	}
 	else
 	{
@@ -71,15 +78,21 @@ void MonthAndYear::Update(sf::RenderWindow& window)
 	if (sf::Mouse::getPosition(window).x > buttonRight.getGlobalBounds().left && sf::Mouse::getPosition(window).x < (buttonRight.getGlobalBounds().left + buttonRight.getGlobalBounds().width) && sf::Mouse::getPosition(window).y > buttonRight.getGlobalBounds().top && sf::Mouse::getPosition(window).y < (buttonRight.getGlobalBounds().top + buttonRight.getGlobalBounds().height))
 	{
 		buttonRight.setTextureRect(sf::IntRect(0, 152, 135, 152));
-		if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
+		
+		if (window.pollEvent(event))
 		{
-			this->month++;
-			if (month > 12)
-				month = 1;
-			if (month < 1)
-				month = 12;
-
-			textMonth.setString(textStringMonth[month]);
+			if (event.type == event.MouseButtonReleased && event.mouseButton.button == sf::Mouse::Left)
+			{
+				this->month++;
+				if (month > 12)
+				{
+					month = 1;
+					year++;
+					textStringYear = std::to_string(year);
+					textYear.setString(textStringYear);
+				}
+				textMonth.setString(textStringMonth[month]);
+			}
 		}
 	}
 	else

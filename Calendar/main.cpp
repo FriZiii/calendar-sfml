@@ -1,4 +1,5 @@
 #include <SFML/Graphics.hpp>
+
 #include "LeftBar.h"
 #include "Background.h"
 #include "DaysOfTheWeek.h"
@@ -6,13 +7,18 @@
 #include "Button.h"
 #include "Logo.h"
 #include "MonthAndYear.h"
+
 #include <vector>
 
 int main()
 {
+    //Window
     sf::RenderWindow window(sf::VideoMode(1200, 610), "Calendar");
 
+    //Left bar
     LeftBar left;
+
+    //Background
     Background background;
 
     //Font
@@ -20,7 +26,7 @@ int main()
 
     //Month and Year
     MonthAndYear monthAndYear(8, 2023, font);
-    
+
     //Days of the week
     std::vector<DaysOfTheWeek>daysoftheweek;
     for (int i = 0; i <= 6; i++)
@@ -59,11 +65,17 @@ int main()
                 window.close();
         }
 
+
         //Updates
         for (Button& button : button)
             button.Update(window);
 
         monthAndYear.Update(window);
+
+        for (DaysBoxes& daysboxes : daysboxes)
+        {
+            daysboxes.Update(window);
+        }
 
         //Draw
         window.clear();
