@@ -15,7 +15,7 @@ MonthAndYear::MonthAndYear(int month, int year, sf::Font &font)
 
 	textMonth.setString(textStringMonth[month]);
 
-	textMonth.setPosition(601.0f - (textMonth.getGlobalBounds().width), (83.0f/2.0f) - (textMonth.getGlobalBounds().height/2.0f));
+	textMonth.setPosition(590.5f - (textMonth.getGlobalBounds().width) - 10.0f , (83.0f / 2.0f) - (textMonth.getGlobalBounds().height / 2.0f));
 
 	//Year
 	textStringYear = std::to_string(year);
@@ -24,7 +24,7 @@ MonthAndYear::MonthAndYear(int month, int year, sf::Font &font)
 	textYear.setFillColor(sf::Color::Black);
 	textYear.setString(textStringYear);
 
-	textYear.setPosition(601.0f, (83.0f / 2.0f) - (textYear.getGlobalBounds().height / 2.0f));
+	textYear.setPosition(590.5f + 10.0f, (83.0f / 2.0f) - (textYear.getGlobalBounds().height / 2.0f));
 
 	//Buttons
 
@@ -34,26 +34,25 @@ MonthAndYear::MonthAndYear(int month, int year, sf::Font &font)
 		buttonRight.setSize(sf::Vector2f(30.0f, 30.0f));
 		buttonRight.setTexture(&texture);
 		buttonRight.setTextureRect(sf::IntRect(0, 0, 135, 152));
-		buttonRight.setPosition((textYear.getPosition().x + textYear.getGlobalBounds().width) + buttonRight.getSize().x + 10.0f, (83.0f / 2.0f) - (buttonRight.getSize().y / 2.0f) + 6.0f);
-
+		buttonRight.setPosition(590.5f + 250.0f, (83.0f / 2.0f) - (buttonRight.getSize().y / 2.0f) + 6.0f);
 		//Left
 
 		this->texture.loadFromFile("Assets/MonthYearButtons.png");
 		buttonLeft.setSize(sf::Vector2f(30.0f, 30.0f));
 		buttonLeft.setTexture(&texture);
 		buttonLeft.setTextureRect(sf::IntRect(135, 0, 135, 152));
-		buttonLeft.setPosition((textMonth.getPosition().x) - buttonLeft.getSize().x - 10.0f, (83.0f / 2.0f) - (buttonLeft.getSize().y / 2.0f) + 6.0f);
+		buttonLeft.setPosition(590.5f - 250.0f, (83.0f / 2.0f) - (buttonLeft.getSize().y / 2.0f) + 6.0f);
 }
 
 void MonthAndYear::Update(sf::RenderWindow& window)
 {
-	sf::Event event{};
+	sf::Event event;
 
 	if (sf::Mouse::getPosition(window).x > buttonLeft.getGlobalBounds().left && sf::Mouse::getPosition(window).x < (buttonLeft.getGlobalBounds().left + buttonLeft.getGlobalBounds().width) && sf::Mouse::getPosition(window).y > buttonLeft.getGlobalBounds().top && sf::Mouse::getPosition(window).y < (buttonLeft.getGlobalBounds().top + buttonLeft.getGlobalBounds().height))
 	{
 		buttonLeft.setTextureRect(sf::IntRect(135, 152, 135, 152));
 
-		if (window.pollEvent(event))
+		while (window.pollEvent(event))
 		{
 			if (event.type == event.MouseButtonReleased && event.mouseButton.button == sf::Mouse::Left)
 			{
@@ -64,8 +63,10 @@ void MonthAndYear::Update(sf::RenderWindow& window)
 					year--;
 					textStringYear = std::to_string(year);
 					textYear.setString(textStringYear);
+					textYear.setPosition(590.5f + 10.0f, (83.0f / 2.0f) - (textYear.getGlobalBounds().height / 2.0f));
 				}
 				textMonth.setString(textStringMonth[month]);
+				textMonth.setPosition(590.5f - (textMonth.getGlobalBounds().width) - 10.0f, (83.0f / 2.0f) - (textMonth.getGlobalBounds().height / 2.0f));
 			}
 		}
 
@@ -79,7 +80,7 @@ void MonthAndYear::Update(sf::RenderWindow& window)
 	{
 		buttonRight.setTextureRect(sf::IntRect(0, 152, 135, 152));
 		
-		if (window.pollEvent(event))
+		while (window.pollEvent(event))
 		{
 			if (event.type == event.MouseButtonReleased && event.mouseButton.button == sf::Mouse::Left)
 			{
@@ -90,8 +91,10 @@ void MonthAndYear::Update(sf::RenderWindow& window)
 					year++;
 					textStringYear = std::to_string(year);
 					textYear.setString(textStringYear);
+					textYear.setPosition(590.5f + 10.0f, (83.0f / 2.0f) - (textYear.getGlobalBounds().height / 2.0f));
 				}
 				textMonth.setString(textStringMonth[month]);
+				textMonth.setPosition(590.5f - (textMonth.getGlobalBounds().width) - 10.0f, (83.0f / 2.0f) - (textMonth.getGlobalBounds().height / 2.0f));
 			}
 		}
 	}

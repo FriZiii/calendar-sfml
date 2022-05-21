@@ -11,7 +11,7 @@ class MonthAndYear
 
 	sf::Vector2f textPossitionMonth;
 	sf::Vector2f textPossitionYear;
-	std::string textStringMonth[13] = {" ","JAN ","FEB ","MAR ","APR ","MAY ","JUN ","JUL ","AUG ","SEP ","OCT ","NOV ","DEC "};
+	std::string textStringMonth[13] = {" ","JAN","FEB","MAR","APR","MAY","JUN","JUL","AUG","SEP","OCT","NOV","DEC"};
 	std::string textStringYear;
 
 	int year = 2022;
