@@ -26,7 +26,7 @@ int main()
     sf::Font font; font.loadFromFile("Fonts/WILD_WORLD.otf");
 
     //Month and Year
-    MonthAndYear monthAndYear(2, 2022, font);
+    MonthAndYear monthAndYear(2, 2020, font);
 
     //Days of the week
     std::vector<DaysOfTheWeek>daysoftheweek;
