@@ -10,6 +10,9 @@
 #include "Functions.h"
 
 #include <vector>
+#include <time.h>
+
+#pragma warning(disable : 4996)
 
 int main()
 {
@@ -26,7 +29,14 @@ int main()
     sf::Font font; font.loadFromFile("Fonts/WILD_WORLD.otf");
 
     //Month and Year
-    MonthAndYear monthAndYear(2, 2020, font);
+
+        //Getting actual month and year
+        time_t theTime = time(NULL);
+        struct tm* aTime = localtime(&theTime);
+        int month = aTime->tm_mon + 1;
+        int year = aTime->tm_year + 1900;
+
+    MonthAndYear monthAndYear(month, year, font);
 
     //Days of the week
     std::vector<DaysOfTheWeek>daysoftheweek;
@@ -39,7 +49,6 @@ int main()
 
     //Boxes of the day
     std::vector<DaysBoxes>daysboxes;
-
     int k = 0;
     for (int i = 0; i <= 5; i++)
     {
