@@ -1,6 +1,6 @@
 #include "DaysBoxes.h"
 
-DaysBoxes::DaysBoxes(sf::Vector2f position, sf::Font &font, int day)
+DaysBoxes::DaysBoxes(sf::Vector2f position, sf::Font &font, int day, int weekDay)
 {
 	this->grey = sf::Color(232, 232, 232);
 	this->purple = sf::Color(93, 9, 172);
@@ -17,16 +17,22 @@ DaysBoxes::DaysBoxes(sf::Vector2f position, sf::Font &font, int day)
 	text.setFont(font);
 	text.setCharacterSize(22);
 	text.setFillColor(sf::Color::Black);
-
-	if(day >= 50)
+	if (weekDay > 0)
+	{
 		text.setString(" ");
-	else
-		text.setString(std::to_string(day));
+	}
+	else if(weekDay <= 0)
+	{
+		if (day >= 50)
+			text.setString(" ");
+		else
+			text.setString(std::to_string(day));
+	}
 
 	text.setPosition(body.getPosition().x + (body.getSize().x / 2.0f) - (text.getGlobalBounds().width / 2.0f), body.getPosition().y + (body.getSize().y / 2.0f) - (text.getGlobalBounds().height / 2.0f));
 }
 
-void DaysBoxes::Update(sf::RenderWindow& window, int day)
+void DaysBoxes::Update(sf::RenderWindow& window, int day, int weekDay)
 {
 	//Hover and click effect
 	if (sf::Mouse::getPosition(window).x > body.getGlobalBounds().left && sf::Mouse::getPosition(window).x < (body.getGlobalBounds().left + body.getGlobalBounds().width) && sf::Mouse::getPosition(window).y > body.getGlobalBounds().top && sf::Mouse::getPosition(window).y < (body.getGlobalBounds().top + body.getGlobalBounds().height))
@@ -60,10 +66,16 @@ void DaysBoxes::Update(sf::RenderWindow& window, int day)
 	}
 
 	//Days 
-	if (day >= 50)
+	if (weekDay > 0)
+	{
 		text.setString(" ");
+	}
 	else
-		text.setString(std::to_string(day));
-
+	{
+		if (day >= 50)
+			text.setString(" ");
+		else
+			text.setString(std::to_string(day));
+	}
 	text.setPosition(body.getPosition().x + (body.getSize().x / 2.0f) - (text.getGlobalBounds().width / 2.0f), body.getPosition().y + (body.getSize().y / 2.0f) - (text.getGlobalBounds().height / 2.0f));
 }

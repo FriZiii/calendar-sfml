@@ -9,7 +9,7 @@ class DaysOfTheWeek
 	sf::Text text;
 	sf::Color black;
 	sf::Font font;
-	std::string textString;
+	std::string textString[7] = {"MON", "TUE", "WED", "THU" ,"FRI" ,"SAT", "SUN"};
 public:
 	DaysOfTheWeek(int i, sf::Vector2f position, sf::Font &font);
 	void Draw(sf::RenderWindow& window);

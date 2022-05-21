@@ -4,12 +4,12 @@ E:\Calendar\Calendar\Calendar\main.cpp(46,35): warning C4244: "argument": konwer
           [
               T=float
           ]
-E:\Calendar\Calendar\Calendar\main.cpp(62,60): warning C4244: "argument": konwersja z "int" do "T", możliwa utrata danych
+E:\Calendar\Calendar\Calendar\main.cpp(68,60): warning C4244: "argument": konwersja z "int" do "T", możliwa utrata danych
           with
           [
               T=float
           ]
-E:\Calendar\Calendar\Calendar\main.cpp(62,39): warning C4244: "argument": konwersja z "int" do "T", możliwa utrata danych
+E:\Calendar\Calendar\Calendar\main.cpp(68,39): warning C4244: "argument": konwersja z "int" do "T", możliwa utrata danych
           with
           [
               T=float

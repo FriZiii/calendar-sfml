@@ -50,17 +50,24 @@ int main()
     //Boxes of the day
     std::vector<DaysBoxes>daysboxes;
     int k = 0;
+    int l = zellerArgorithm(monthAndYear.GetMonth(), monthAndYear.GetYear());
+    std::cout << l;
     for (int i = 0; i <= 5; i++)
     {
         for (int j = 0; j <= 6; j++)
         {
             if (k < DaysCount(monthAndYear.GetMonth(), monthAndYear.GetYear()))
+            {
                 k++;
+            }
             else
+            {
                 k = 50;
+            }
 
             sf::Vector2f position(293 + j * (68 + 20), 151 + i * 72);
-            daysboxes.push_back(DaysBoxes(position, font, k));
+            daysboxes.push_back(DaysBoxes(position, font, k , l));
+            l--;
         }
     }
 
@@ -93,13 +100,18 @@ int main()
         monthAndYear.Update(window);
 
         int k = 0;
+        int l = zellerArgorithm(monthAndYear.GetMonth(), monthAndYear.GetYear());
         for (DaysBoxes& daysboxes : daysboxes)
         {
-            if (k < DaysCount(monthAndYear.GetMonth(), monthAndYear.GetYear()))
-                k++;
-            else
-                k = 50;
-            daysboxes.Update(window ,k);
+            if (l <= 0)
+            {
+                if (k < DaysCount(monthAndYear.GetMonth(), monthAndYear.GetYear()))
+                    k++;
+                else
+                    k = 50;
+            }
+            daysboxes.Update(window ,k, l);
+            l--;
         }
 
         //Draw
