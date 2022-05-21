@@ -7,13 +7,14 @@
 #include "Button.h"
 #include "Logo.h"
 #include "MonthAndYear.h"
+#include "Functions.h"
 
 #include <vector>
 
 int main()
 {
     //Window
-    sf::RenderWindow window(sf::VideoMode(1200, 610), "Calendar");
+    sf::RenderWindow window(sf::VideoMode(1200, 610), "Calendar", 4U);
 
     //Left bar
     LeftBar left;
@@ -25,10 +26,11 @@ int main()
     sf::Font font; font.loadFromFile("Fonts/WILD_WORLD.otf");
 
     //Month and Year
-    MonthAndYear monthAndYear(5, 2022, font);
+    MonthAndYear monthAndYear(2, 2022, font);
 
     //Days of the week
     std::vector<DaysOfTheWeek>daysoftheweek;
+
     for (int i = 0; i <= 6; i++)
     {
         sf::Vector2f position(293 + i * (68 + 20), 121);
@@ -37,12 +39,19 @@ int main()
 
     //Boxes of the day
     std::vector<DaysBoxes>daysboxes;
+
+    int k = 0;
     for (int i = 0; i <= 5; i++)
     {
         for (int j = 0; j <= 6; j++)
         {
-            sf::Vector2f position(293 + j * (68 + 20), 151+i*72);
-            daysboxes.push_back(DaysBoxes(position, font));
+            if (k < DaysCount(monthAndYear.GetMonth(), monthAndYear.GetYear()))
+                k++;
+            else
+                k = 50;
+
+            sf::Vector2f position(293 + j * (68 + 20), 151 + i * 72);
+            daysboxes.push_back(DaysBoxes(position, font, k));
         }
     }
 
@@ -65,16 +74,23 @@ int main()
                 window.close();
         }
 
-
         //Updates
         for (Button& button : button)
             button.Update(window);
 
+        if (button[3].IsClicked(window))
+            window.close();
+
         monthAndYear.Update(window);
 
+        int k = 0;
         for (DaysBoxes& daysboxes : daysboxes)
         {
-            daysboxes.Update(window);
+            if (k < DaysCount(monthAndYear.GetMonth(), monthAndYear.GetYear()))
+                k++;
+            else
+                k = 50;
+            daysboxes.Update(window ,k);
         }
 
         //Draw

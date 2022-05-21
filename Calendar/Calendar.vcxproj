@@ -159,7 +159,7 @@
     <ClCompile Include="Logo.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MonthAndYear.cpp" />
-    <ClCompile Include="Zeller_algorithm.cpp" />
+    <ClCompile Include="Functions.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Background.h" />
@@ -169,7 +169,7 @@
     <ClInclude Include="LeftBar.h" />
     <ClInclude Include="Logo.h" />
     <ClInclude Include="MonthAndYear.h" />
-    <ClInclude Include="Zeller_algorithm.h" />
+    <ClInclude Include="Functions.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

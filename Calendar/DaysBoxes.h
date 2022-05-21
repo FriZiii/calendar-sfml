@@ -16,8 +16,8 @@ class DaysBoxes
 	std::string textString;
 
 public:
-	DaysBoxes(sf::Vector2f position, sf::Font& font);
+	DaysBoxes(sf::Vector2f position, sf::Font& font, int day);
 	void Draw(sf::RenderWindow& window) { window.draw(body); window.draw(text); }
-	void Update(sf::RenderWindow& window);
+	void Update(sf::RenderWindow& window, int day);
 };
 

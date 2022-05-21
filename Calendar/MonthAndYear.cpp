@@ -29,14 +29,13 @@ MonthAndYear::MonthAndYear(int month, int year, sf::Font &font)
 	//Buttons
 
 		//Right
-
 		this->texture.loadFromFile("Assets/MonthYearButtons.png");
 		buttonRight.setSize(sf::Vector2f(30.0f, 30.0f));
 		buttonRight.setTexture(&texture);
 		buttonRight.setTextureRect(sf::IntRect(0, 0, 135, 152));
 		buttonRight.setPosition(590.5f + 250.0f, (83.0f / 2.0f) - (buttonRight.getSize().y / 2.0f) + 6.0f);
-		//Left
 
+		//Left
 		this->texture.loadFromFile("Assets/MonthYearButtons.png");
 		buttonLeft.setSize(sf::Vector2f(30.0f, 30.0f));
 		buttonLeft.setTexture(&texture);
