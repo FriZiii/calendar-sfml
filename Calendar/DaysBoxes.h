@@ -8,6 +8,7 @@ class DaysBoxes
 	sf::Vector2f position;
 	sf::Color grey;
 	sf::Color purple;
+	bool isClicked;
 public:
 	DaysBoxes(sf::Vector2f position);
 	void Draw(sf::RenderWindow& window) { window.draw(body); }
