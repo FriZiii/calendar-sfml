@@ -9,7 +9,6 @@ class DaysOfTheWeek
 	sf::Text text;
 	sf::Color black;
 	sf::Font font;
-	sf::Vector2f textpossition;
 	std::string textString;
 public:
 	DaysOfTheWeek(int i, sf::Vector2f position, sf::Font &font);

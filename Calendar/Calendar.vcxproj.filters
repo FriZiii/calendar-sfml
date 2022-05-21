@@ -38,6 +38,9 @@
     <ClCompile Include="MonthAndYear.cpp">
       <Filter>Middle</Filter>
     </ClCompile>
+    <ClCompile Include="Zeller_algorithm.cpp">
+      <Filter>Main</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Background.h">
@@ -60,6 +63,9 @@
     </ClInclude>
     <ClInclude Include="MonthAndYear.h">
       <Filter>Middle</Filter>
+    </ClInclude>
+    <ClInclude Include="Zeller_algorithm.h">
+      <Filter>Main</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

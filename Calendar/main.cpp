@@ -42,7 +42,7 @@ int main()
         for (int j = 0; j <= 6; j++)
         {
             sf::Vector2f position(293 + j * (68 + 20), 151+i*72);
-            daysboxes.push_back(DaysBoxes(position));
+            daysboxes.push_back(DaysBoxes(position, font));
         }
     }
 
