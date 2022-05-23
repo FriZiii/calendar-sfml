@@ -15,7 +15,7 @@ DaysBoxes::DaysBoxes(sf::Vector2f position, sf::Font &font, int day, int weekDay
 
 	//Days
 	text.setFont(font);
-	text.setCharacterSize(22);
+	text.setCharacterSize(28);
 	text.setFillColor(sf::Color::Black);
 	if (weekDay > 0)
 	{

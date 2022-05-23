@@ -16,8 +16,15 @@
 
 int main()
 {
+    //Antialiasing
+    sf::ContextSettings settings;
+    settings.antialiasingLevel = 8;
+
     //Window
-    sf::RenderWindow window(sf::VideoMode(1200, 610), "Calendar", 4U);
+    sf::RenderWindow window(sf::VideoMode(1200, 610), "Calendar", 4U, settings);
+
+    //Logo
+    Logo logo;
 
     //Left bar
     LeftBar left;
@@ -49,25 +56,25 @@ int main()
 
     //Boxes of the day
     std::vector<DaysBoxes>daysboxes;
-    int k = 0;
-    int l = zellerArgorithm(monthAndYear.GetMonth(), monthAndYear.GetYear());
-    std::cout << l;
+
+    int daysCount = 0;
+    int weekDay = zellerArgorithm(monthAndYear.GetMonth(), monthAndYear.GetYear());
     for (int i = 0; i <= 5; i++)
     {
         for (int j = 0; j <= 6; j++)
         {
-            if (k < DaysCount(monthAndYear.GetMonth(), monthAndYear.GetYear()))
+            if (daysCount < DaysCount(monthAndYear.GetMonth(), monthAndYear.GetYear()))
             {
-                k++;
+                daysCount++;
             }
             else
             {
-                k = 50;
+                daysCount = 50;
             }
 
             sf::Vector2f position(293 + j * (68 + 20), 151 + i * 72);
-            daysboxes.push_back(DaysBoxes(position, font, k , l));
-            l--;
+            daysboxes.push_back(DaysBoxes(position, font, daysCount, weekDay));
+            weekDay--;
         }
     }
 
@@ -77,9 +84,6 @@ int main()
     button.push_back(Button(sf::Vector2f(20, 290), font, "SETTINGS"));
     button.push_back(Button(sf::Vector2f(20, 390), font, "CREDITS"));
     button.push_back(Button(sf::Vector2f(20, 490), font, "EXIT"));
-
-    //Logo
-    Logo logo;
 
     while (window.isOpen())
     {
@@ -99,19 +103,19 @@ int main()
 
         monthAndYear.Update(window);
 
-        int k = 0;
-        int l = zellerArgorithm(monthAndYear.GetMonth(), monthAndYear.GetYear());
+        int daysCount = 0;
+        int weekDay = zellerArgorithm(monthAndYear.GetMonth(), monthAndYear.GetYear());
         for (DaysBoxes& daysboxes : daysboxes)
         {
-            if (l <= 0)
+            if (weekDay <= 0)
             {
-                if (k < DaysCount(monthAndYear.GetMonth(), monthAndYear.GetYear()))
-                    k++;
+                if (daysCount < DaysCount(monthAndYear.GetMonth(), monthAndYear.GetYear()))
+                    daysCount++;
                 else
-                    k = 50;
+                    daysCount = 50;
             }
-            daysboxes.Update(window ,k, l);
-            l--;
+            daysboxes.Update(window ,daysCount , weekDay);
+            weekDay--;
         }
 
         //Draw
