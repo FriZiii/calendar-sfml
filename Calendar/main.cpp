@@ -156,6 +156,7 @@ int main()
 
             rightbartext.Update(day, monthAndYear.GetMonthString(), right.GetSize(), right.GetPosition());
         }
+
         //Draw
         window.clear();
 

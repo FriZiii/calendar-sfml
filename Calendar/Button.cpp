@@ -22,7 +22,7 @@ Button::Button(sf::Vector2f position, sf::Font &font, std::string textString)
 	text.setFillColor(black);
 	text.setString(textString);
 
-	text.setPosition((position.x +39.0f) + 75 - (text.getGlobalBounds().width/2.0f), position.y + 28.0f - (text.getGlobalBounds().height / 2.0f));
+	text.setPosition((position.x + 39.0f) + 75.0f - (text.getGlobalBounds().width/2.0f), position.y + 28.0f - (text.getGlobalBounds().height / 2.0f));
 
 }
 
@@ -36,7 +36,7 @@ void Button::Update(sf::RenderWindow& window)
 		body.setPoint(2, sf::Vector2f(194, 63));
 		body.setPoint(3, sf::Vector2f(228, 0));
 
-		body.setPosition(position.x-2.0f, position.y +1.0f);
+		body.setPosition(position.x - 2.0f, position.y + 1.0f);
 
 		//Text
 		sf::Color Purple(93, 9, 172);
