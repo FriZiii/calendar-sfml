@@ -6,7 +6,7 @@ RightBarText::RightBarText(sf::Font& font)
 	text.setFont(font);
 	text.setFillColor(sf::Color::White);
 	text.setString(textString);
-	text.setCharacterSize(32);
+	text.setCharacterSize(30);
 }
 
 void RightBarText::Update(int day, std::string monthString, sf::Vector2f size, sf::Vector2f position)
@@ -14,17 +14,20 @@ void RightBarText::Update(int day, std::string monthString, sf::Vector2f size, s
 	if (day % 10 == 1 || day % 20 == 1 || day % 30 == 1)
 	{
 		dayString = std::to_string(day);
-		textString = dayString + "st " + monthString;
+		std::transform(monthString.begin(), monthString.end(), monthString.begin(), ::tolower),
+		textString = dayString + "st of " + monthString;
 	}
 	else if (day % 10 == 2 || day % 20 == 2 || day % 30 == 2)
 	{
 		dayString = std::to_string(day);
-		textString = dayString + "nd " + monthString;
+		std::transform(monthString.begin(), monthString.end(), monthString.begin(), ::tolower),
+		textString = dayString + "nd of " + monthString;
 	}
 	else if (day % 10 == 3 || day % 20 == 3 || day % 30 == 3)
 	{
 		dayString = std::to_string(day);
-		textString = dayString + "rd " + monthString;
+		std::transform(monthString.begin(), monthString.end(), monthString.begin(), ::tolower),
+		textString = dayString + "rd of " + monthString;
 	}
 	else if (day == 0 || day >=50)
 	{
@@ -34,7 +37,8 @@ void RightBarText::Update(int day, std::string monthString, sf::Vector2f size, s
 	else
 	{
 		dayString = std::to_string(day);
-		textString = dayString + "th " + monthString;
+		std::transform(monthString.begin(), monthString.end(), monthString.begin(), ::tolower),
+		textString = dayString + "th of " + monthString;
 	}
 
 	text.setString(textString);
