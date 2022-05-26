@@ -18,24 +18,37 @@
 int main()
 {
     //Antialiasing
-    sf::ContextSettings settings;
-    settings.antialiasingLevel = 8;
+    sf::ContextSettings contextsettings;
+    contextsettings.antialiasingLevel = 8;
 
     //Window
-    sf::RenderWindow window(sf::VideoMode(1200, 610), "Calendar", 4U, settings);
+    sf::RenderWindow window(sf::VideoMode(1200.0f, 610.0f), "Calendar", 4U, contextsettings);
 
-    //Logo
-    Logo logo;
+
+    //Font
+    sf::Font font; font.loadFromFile("Fonts/WILD_WORLD.otf");
+
+    //Background
+    Background background;
 
     //Left and Right bar
     SidePanel left(sf::Vector2f(266.0f, 610.0f), sf::Vector2f(0.0f, 0.0f));
     SidePanel right(sf::Vector2f(286.0f, 87.0f), sf::Vector2f(914.0f, 0.0f));
 
-    //Background
-    Background background;
+    //Logo
+    Logo logo;
 
-    //Font
-    sf::Font font; font.loadFromFile("Fonts/WILD_WORLD.otf");
+    //Buttons left bar
+    std::vector<Button>button;
+    button.push_back(Button(sf::Vector2f(20.0f, 190.0f), font, "HOME"));
+    button.push_back(Button(sf::Vector2f(20.0f, 290.0f), font, "SETTINGS"));
+    button.push_back(Button(sf::Vector2f(20.0f, 390.0f), font, "CREDITS"));
+    button.push_back(Button(sf::Vector2f(20.0f, 490.0f), font, "EXIT"));
+
+    bool home = true;
+    bool credits = false;
+    bool settings = false;
+
 
     //Month and Year
         //Getting actual month and year
@@ -79,13 +92,6 @@ int main()
         }
     }
 
-    //Buttons left bar
-    std::vector<Button>button;
-    button.push_back(Button(sf::Vector2f(20, 190), font, "HOME"));
-    button.push_back(Button(sf::Vector2f(20, 290), font, "SETTINGS"));
-    button.push_back(Button(sf::Vector2f(20, 390), font, "CREDITS"));
-    button.push_back(Button(sf::Vector2f(20, 490), font, "EXIT"));
-
     //Right bar text;
     int day{};
     RightBarText rightbartext(font);
@@ -105,51 +111,75 @@ int main()
         for (Button& button : button)
             button.Update(window);
 
-        if (button[3].IsClicked(window))
+        if (button[0].IsClicked(window))
+        {
+            home = true;
+            settings = false;
+            credits = false;
+        }
+        else if (button[1].IsClicked(window))
+        {
+            home = false;
+            settings = true;
+            credits = false;
+        }
+        else if (button[2].IsClicked(window))
+        {
+            home = false;
+            settings = false;
+            credits = true;
+        }
+        else if (button[3].IsClicked(window))
             window.close();
 
-        monthAndYear.Update(window);
-
-        int daysCount = 0;
-        int weekDay = zellerArgorithm(monthAndYear.GetMonth(), monthAndYear.GetYear());
-        for (DaysBoxes& daysboxes : daysboxes)
+        if (home && !credits && !settings)
         {
-            if (weekDay <= 0)
+            monthAndYear.Update(window);
+
+            int daysCount = 0;
+            int weekDay = zellerArgorithm(monthAndYear.GetMonth(), monthAndYear.GetYear());
+            for (DaysBoxes& daysboxes : daysboxes)
             {
-                if (daysCount < DaysCount(monthAndYear.GetMonth(), monthAndYear.GetYear()))
-                    daysCount++;
-                else
-                    daysCount = 50;
+                if (weekDay <= 0)
+                {
+                    if (daysCount < DaysCount(monthAndYear.GetMonth(), monthAndYear.GetYear()))
+                        daysCount++;
+                    else
+                        daysCount = 50;
+                }
+                daysboxes.Update(window, daysCount, weekDay);
+                weekDay--;
+
+                if (daysboxes.isClick(window))
+                    day = daysboxes.GetDay(window);
             }
-            daysboxes.Update(window ,daysCount , weekDay);
-            weekDay--;
 
-            if (daysboxes.isClick(window))
-                day = daysboxes.GetDay(window);
+            rightbartext.Update(day, monthAndYear.GetMonthString(), right.GetSize(), right.GetPosition());
         }
-
-        rightbartext.Update(day, monthAndYear.GetMonthString(), right.GetSize(), right.GetPosition());
-
         //Draw
         window.clear();
 
         background.Draw(window);
         left.Draw(window);
-        right.Draw(window);
         logo.Draw(window);
-
-        for (DaysOfTheWeek& daysoftheweek : daysoftheweek)
-            daysoftheweek.Draw(window);
-
-        for (DaysBoxes& daysboxes : daysboxes)
-            daysboxes.Draw(window);
-
-        monthAndYear.Draw(window);
 
         for (Button& button : button)
             button.Draw(window);
 
-        rightbartext.Draw(window);
+        if (home && !credits && !settings)
+        {
+            right.Draw(window);
+
+            for (DaysOfTheWeek& daysoftheweek : daysoftheweek)
+                daysoftheweek.Draw(window);
+
+            for (DaysBoxes& daysboxes : daysboxes)
+                daysboxes.Draw(window);
+
+            monthAndYear.Draw(window);
+
+            rightbartext.Draw(window);
+        }
         window.display();
     }
 

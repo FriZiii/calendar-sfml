@@ -1,4 +1,6 @@
 ﻿  main.cpp
+E:\Calendar\Calendar\Calendar\main.cpp(25,52): warning C4244: "argument": konwersja z "float" do "unsigned int", możliwa utrata danych
+E:\Calendar\Calendar\Calendar\main.cpp(25,43): warning C4244: "argument": konwersja z "float" do "unsigned int", możliwa utrata danych
   Trwa generowanie kodu
   1 of 306 functions ( 0.3%) were compiled, the rest were copied from previous compilation.
     0 functions were new in current compilation

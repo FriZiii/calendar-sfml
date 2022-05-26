@@ -91,7 +91,9 @@ bool DaysBoxes::isClick(sf::RenderWindow& window)
 		}
 	}
 	else
+	{
 		return false;
+	}
 }
 
 unsigned int DaysBoxes::GetDay(sf::RenderWindow& window)
