@@ -22,8 +22,12 @@ int main()
     contextsettings.antialiasingLevel = 8;
 
     //Window
-    sf::RenderWindow window(sf::VideoMode(1200.0f, 610.0f), "Calendar", 4U, contextsettings);
+    sf::RenderWindow window(sf::VideoMode(1200, 610), "Calendar", 4U, contextsettings);
 
+    //Startup value
+    bool home = true;
+    bool credits = false;
+    bool settings = false;
 
     //Font
     sf::Font font; font.loadFromFile("Fonts/WILD_WORLD.otf");
@@ -44,11 +48,6 @@ int main()
     button.push_back(Button(sf::Vector2f(20.0f, 290.0f), font, "SETTINGS"));
     button.push_back(Button(sf::Vector2f(20.0f, 390.0f), font, "CREDITS"));
     button.push_back(Button(sf::Vector2f(20.0f, 490.0f), font, "EXIT"));
-
-    bool home = true;
-    bool credits = false;
-    bool settings = false;
-
 
     //Month and Year
         //Getting actual month and year
@@ -72,18 +71,18 @@ int main()
     std::vector<DaysBoxes>daysboxes;
 
     int daysCount = 0;
-    int weekDay = zellerArgorithm(monthAndYear.GetMonth(), monthAndYear.GetYear());
+    int weekDay = zellerArgorithm(monthAndYear.GetMonth(), monthAndYear.GetYear()); //How many days we have to skip
     for (int i = 0; i <= 5; i++)
     {
         for (int j = 0; j <= 6; j++)
         {
-            if (daysCount < DaysCount(monthAndYear.GetMonth(), monthAndYear.GetYear()))
+            if (daysCount < DaysCount(monthAndYear.GetMonth(), monthAndYear.GetYear()))//If the current day is less than the number of days in the month, we increase the next day
             {
                 daysCount++;
             }
             else
             {
-                daysCount = 50;
+                daysCount = 50;//otherwise, we set a placeholder
             }
 
             sf::Vector2f position(293.0f + (float)j * (68.0f + 20.0f), 151.0f + (float)i * 72.0f);
@@ -96,7 +95,7 @@ int main()
     int day{};
     RightBarText rightbartext(font);
 
-
+    bool isClicked = false;
     //Main loop
     while (window.isOpen())
     {
@@ -105,6 +104,10 @@ int main()
         {
             if (event.type == sf::Event::Closed)
                 window.close();
+            else if (event.type == event.MouseButtonReleased && event.mouseButton.button == sf::Mouse::Left)
+            {
+                isClicked = true;
+            }
         }
 
         //Updates
@@ -134,18 +137,24 @@ int main()
 
         if (home && !credits && !settings)
         {
-            monthAndYear.Update(window);
+            if (isClicked)
+            {
+                monthAndYear.Update(window);
+                isClicked = false;
+            }
+            monthAndYear.HoverEffect(window);
+
 
             int daysCount = 0;
-            int weekDay = zellerArgorithm(monthAndYear.GetMonth(), monthAndYear.GetYear());
+            int weekDay = zellerArgorithm(monthAndYear.GetMonth(), monthAndYear.GetYear());//How many days we have to skip
             for (DaysBoxes& daysboxes : daysboxes)
             {
                 if (weekDay <= 0)
                 {
-                    if (daysCount < DaysCount(monthAndYear.GetMonth(), monthAndYear.GetYear()))
+                    if (daysCount < DaysCount(monthAndYear.GetMonth(), monthAndYear.GetYear()))//If the current day is less than the number of days in the month, we increase the next day
                         daysCount++;
                     else
-                        daysCount = 50;
+                        daysCount = 50;//otherwise, we set a placeholder
                 }
                 daysboxes.Update(window, daysCount, weekDay);
                 weekDay--;

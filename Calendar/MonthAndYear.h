@@ -27,10 +27,13 @@ class MonthAndYear
 	sf::Texture texture;
 	sf::Texture textureHover;
 
+	bool isClicked;
+
 public:
 	MonthAndYear(int month, int year, sf::Font &font);
 	void Draw(sf::RenderWindow& window) { window.draw(textMonth); window.draw(textYear); window.draw(buttonLeft); window.draw(buttonRight);}
 	void Update(sf::RenderWindow& window);
+	void HoverEffect(sf::RenderWindow& window);
 	unsigned int GetMonth() { return month; }
 	unsigned int GetYear(){ return year; }
 	std::string GetMonthString();

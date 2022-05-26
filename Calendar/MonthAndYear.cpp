@@ -45,57 +45,55 @@ MonthAndYear::MonthAndYear(int month, int year, sf::Font &font)
 
 void MonthAndYear::Update(sf::RenderWindow& window)
 {
-	sf::Event event;
+	//Left
+	if (sf::Mouse::getPosition(window).x > buttonLeft.getGlobalBounds().left && sf::Mouse::getPosition(window).x < (buttonLeft.getGlobalBounds().left + buttonLeft.getGlobalBounds().width) && sf::Mouse::getPosition(window).y > buttonLeft.getGlobalBounds().top && sf::Mouse::getPosition(window).y < (buttonLeft.getGlobalBounds().top + buttonLeft.getGlobalBounds().height))
+	{
+		this->month--;
+		if (month < 1)
+		{
+			month = 12;
+			year--;
+			textStringYear = std::to_string(year);
+			textYear.setString(textStringYear);
+			textYear.setPosition(590.5f + 10.0f, (83.0f / 2.0f) - (textYear.getGlobalBounds().height / 2.0f));
+		}
+		textMonth.setString(textStringMonth[month]);
+		textMonth.setPosition(590.5f - (textMonth.getGlobalBounds().width) - 10.0f, (83.0f / 2.0f) - (textMonth.getGlobalBounds().height / 2.0f));
+	}
 
+	//Right
+	if (sf::Mouse::getPosition(window).x > buttonRight.getGlobalBounds().left && sf::Mouse::getPosition(window).x < (buttonRight.getGlobalBounds().left + buttonRight.getGlobalBounds().width) && sf::Mouse::getPosition(window).y > buttonRight.getGlobalBounds().top && sf::Mouse::getPosition(window).y < (buttonRight.getGlobalBounds().top + buttonRight.getGlobalBounds().height))
+	{
+		this->month++;
+		if (month > 12)
+		{
+			month = 1;
+			year++;
+			textStringYear = std::to_string(year);
+			textYear.setString(textStringYear);
+			textYear.setPosition(590.5f + 10.0f, (83.0f / 2.0f) - (textYear.getGlobalBounds().height / 2.0f));
+		}
+		textMonth.setString(textStringMonth[month]);
+		textMonth.setPosition(590.5f - (textMonth.getGlobalBounds().width) - 10.0f, (83.0f / 2.0f) - (textMonth.getGlobalBounds().height / 2.0f));
+	}
+}
+
+void MonthAndYear::HoverEffect(sf::RenderWindow& window)
+{
+	//Left
 	if (sf::Mouse::getPosition(window).x > buttonLeft.getGlobalBounds().left && sf::Mouse::getPosition(window).x < (buttonLeft.getGlobalBounds().left + buttonLeft.getGlobalBounds().width) && sf::Mouse::getPosition(window).y > buttonLeft.getGlobalBounds().top && sf::Mouse::getPosition(window).y < (buttonLeft.getGlobalBounds().top + buttonLeft.getGlobalBounds().height))
 	{
 		buttonLeft.setTextureRect(sf::IntRect(135, 152, 135, 152));
-
-		while (window.pollEvent(event))
-		{
-			if (event.type == event.MouseButtonReleased && event.mouseButton.button == sf::Mouse::Left)
-			{
-				this->month--;
-				if (month < 1)
-				{
-					month = 12;
-					year--;
-					textStringYear = std::to_string(year);
-					textYear.setString(textStringYear);
-					textYear.setPosition(590.5f + 10.0f, (83.0f / 2.0f) - (textYear.getGlobalBounds().height / 2.0f));
-				}
-				textMonth.setString(textStringMonth[month]);
-				textMonth.setPosition(590.5f - (textMonth.getGlobalBounds().width) - 10.0f, (83.0f / 2.0f) - (textMonth.getGlobalBounds().height / 2.0f));
-			}
-		}
-
 	}
 	else
 	{
 		buttonLeft.setTextureRect(sf::IntRect(135, 0, 135, 152));
 	}
 
+	//Right
 	if (sf::Mouse::getPosition(window).x > buttonRight.getGlobalBounds().left && sf::Mouse::getPosition(window).x < (buttonRight.getGlobalBounds().left + buttonRight.getGlobalBounds().width) && sf::Mouse::getPosition(window).y > buttonRight.getGlobalBounds().top && sf::Mouse::getPosition(window).y < (buttonRight.getGlobalBounds().top + buttonRight.getGlobalBounds().height))
 	{
 		buttonRight.setTextureRect(sf::IntRect(0, 152, 135, 152));
-		
-		while (window.pollEvent(event))
-		{
-			if (event.type == event.MouseButtonReleased && event.mouseButton.button == sf::Mouse::Left)
-			{
-				this->month++;
-				if (month > 12)
-				{
-					month = 1;
-					year++;
-					textStringYear = std::to_string(year);
-					textYear.setString(textStringYear);
-					textYear.setPosition(590.5f + 10.0f, (83.0f / 2.0f) - (textYear.getGlobalBounds().height / 2.0f));
-				}
-				textMonth.setString(textStringMonth[month]);
-				textMonth.setPosition(590.5f - (textMonth.getGlobalBounds().width) - 10.0f, (83.0f / 2.0f) - (textMonth.getGlobalBounds().height / 2.0f));
-			}
-		}
 	}
 	else
 	{
