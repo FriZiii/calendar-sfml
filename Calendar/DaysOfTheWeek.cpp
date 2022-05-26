@@ -5,6 +5,7 @@ DaysOfTheWeek::DaysOfTheWeek(int i, sf::Vector2f position, sf::Font &font)
 	this->possition = position;
 	this->black = sf::Color(0, 0, 0);
 
+	//An invisible box that helps to set the text positions
 	box.setSize(sf::Vector2f(67.63f, 32.0f));
 	box.setPosition(position);
 	box.setFillColor(sf::Color(0, 0, 0, 0));
