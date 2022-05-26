@@ -33,5 +33,6 @@ public:
 	void Update(sf::RenderWindow& window);
 	unsigned int GetMonth() { return month; }
 	unsigned int GetYear(){ return year; }
+	std::string GetMonthString();
 };
 

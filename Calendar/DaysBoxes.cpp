@@ -34,6 +34,7 @@ DaysBoxes::DaysBoxes(sf::Vector2f position, sf::Font &font, int day, int weekDay
 
 void DaysBoxes::Update(sf::RenderWindow& window, int day, int weekDay)
 {
+	this->day = day;
 	//Hover and click effect
 	if (sf::Mouse::getPosition(window).x > body.getGlobalBounds().left && sf::Mouse::getPosition(window).x < (body.getGlobalBounds().left + body.getGlobalBounds().width) && sf::Mouse::getPosition(window).y > body.getGlobalBounds().top && sf::Mouse::getPosition(window).y < (body.getGlobalBounds().top + body.getGlobalBounds().height))
 	{
@@ -79,3 +80,29 @@ void DaysBoxes::Update(sf::RenderWindow& window, int day, int weekDay)
 	}
 	text.setPosition(body.getPosition().x + (body.getSize().x / 2.0f) - (text.getGlobalBounds().width / 2.0f), body.getPosition().y + (body.getSize().y / 2.0f) - (text.getGlobalBounds().height / 2.0f));
 }
+
+bool DaysBoxes::isClick(sf::RenderWindow& window)
+{
+	if (sf::Mouse::getPosition(window).x > body.getGlobalBounds().left && sf::Mouse::getPosition(window).x < (body.getGlobalBounds().left + body.getGlobalBounds().width) && sf::Mouse::getPosition(window).y > body.getGlobalBounds().top && sf::Mouse::getPosition(window).y < (body.getGlobalBounds().top + body.getGlobalBounds().height))
+	{
+		if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
+		{
+			return true;
+		}
+	}
+	else
+		return false;
+}
+
+std::string DaysBoxes::GetDay(sf::RenderWindow& window)
+{
+	std::string returnedString = std::to_string(day);
+	if (sf::Mouse::getPosition(window).x > body.getGlobalBounds().left && sf::Mouse::getPosition(window).x < (body.getGlobalBounds().left + body.getGlobalBounds().width) && sf::Mouse::getPosition(window).y > body.getGlobalBounds().top && sf::Mouse::getPosition(window).y < (body.getGlobalBounds().top + body.getGlobalBounds().height))
+	{
+		if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
+		{
+			return returnedString;
+		}
+	}
+}
+

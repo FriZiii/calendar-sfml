@@ -4,22 +4,19 @@
     <Filter Include="LeftBar">
       <UniqueIdentifier>{55df4521-ac56-4d73-9274-0c20095048b7}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Middle">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
-    </Filter>
     <Filter Include="Main">
       <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
       <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
+    <Filter Include="Middle">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="RightBar">
+      <UniqueIdentifier>{6590cbf9-11f7-4c2c-9090-649fa4753993}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp">
-      <Filter>Main</Filter>
-    </ClCompile>
-    <ClCompile Include="SidePanel.cpp">
-      <Filter>LeftBar</Filter>
-    </ClCompile>
     <ClCompile Include="DaysOfTheWeek.cpp">
       <Filter>Middle</Filter>
     </ClCompile>
@@ -41,6 +38,15 @@
     <ClCompile Include="Functions.cpp">
       <Filter>Main</Filter>
     </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>Main</Filter>
+    </ClCompile>
+    <ClCompile Include="RightBarText.cpp">
+      <Filter>RightBar</Filter>
+    </ClCompile>
+    <ClCompile Include="SidePanel.cpp">
+      <Filter>Main</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Background.h">
@@ -52,9 +58,6 @@
     <ClInclude Include="DaysBoxes.h">
       <Filter>Middle</Filter>
     </ClInclude>
-    <ClInclude Include="SidePanel.h">
-      <Filter>LeftBar</Filter>
-    </ClInclude>
     <ClInclude Include="Button.h">
       <Filter>LeftBar</Filter>
     </ClInclude>
@@ -65,6 +68,12 @@
       <Filter>Middle</Filter>
     </ClInclude>
     <ClInclude Include="Functions.h">
+      <Filter>Main</Filter>
+    </ClInclude>
+    <ClInclude Include="RightBarText.h">
+      <Filter>RightBar</Filter>
+    </ClInclude>
+    <ClInclude Include="SidePanel.h">
       <Filter>Main</Filter>
     </ClInclude>
   </ItemGroup>

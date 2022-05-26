@@ -102,3 +102,8 @@ void MonthAndYear::Update(sf::RenderWindow& window)
 		buttonRight.setTextureRect(sf::IntRect(0, 0, 135, 152));
 	}
 }
+
+std::string MonthAndYear::GetMonthString()
+{
+	return textStringMonth[month];
+}

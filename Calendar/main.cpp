@@ -8,6 +8,7 @@
 #include "Logo.h"
 #include "MonthAndYear.h"
 #include "Functions.h"
+#include "RightBarText.h"
 
 #include <vector>
 #include <time.h>
@@ -86,6 +87,12 @@ int main()
     button.push_back(Button(sf::Vector2f(20, 390), font, "CREDITS"));
     button.push_back(Button(sf::Vector2f(20, 490), font, "EXIT"));
 
+    //Right bar text;
+    std::string day;
+
+    RightBarText rightbartext(font);
+
+
     while (window.isOpen())
     {
         sf::Event event;
@@ -117,8 +124,12 @@ int main()
             }
             daysboxes.Update(window ,daysCount , weekDay);
             weekDay--;
+
+            if (daysboxes.isClick(window))
+                day = daysboxes.GetDay(window);
         }
 
+        rightbartext.Update(day, monthAndYear.GetMonthString(), right.GetSize(), right.GetPosition());
         //Draw
         window.clear();
 
@@ -138,6 +149,7 @@ int main()
         for (Button& button : button)
             button.Draw(window);
 
+        rightbartext.Draw(window);
         window.display();
     }
 
