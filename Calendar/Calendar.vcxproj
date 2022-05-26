@@ -155,7 +155,7 @@
     <ClCompile Include="Button.cpp" />
     <ClCompile Include="DaysBoxes.cpp" />
     <ClCompile Include="DaysOfTheWeek.cpp" />
-    <ClCompile Include="LeftBar.cpp" />
+    <ClCompile Include="SidePanel.cpp" />
     <ClCompile Include="Logo.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MonthAndYear.cpp" />
@@ -166,7 +166,7 @@
     <ClInclude Include="Button.h" />
     <ClInclude Include="DaysBoxes.h" />
     <ClInclude Include="DaysOfTheWeek.h" />
-    <ClInclude Include="LeftBar.h" />
+    <ClInclude Include="SidePanel.h" />
     <ClInclude Include="Logo.h" />
     <ClInclude Include="MonthAndYear.h" />
     <ClInclude Include="Functions.h" />

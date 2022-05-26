@@ -1,6 +1,6 @@
 #include <SFML/Graphics.hpp>
 
-#include "LeftBar.h"
+#include "SidePanel.h"
 #include "Background.h"
 #include "DaysOfTheWeek.h"
 #include "DaysBoxes.h"
@@ -26,8 +26,9 @@ int main()
     //Logo
     Logo logo;
 
-    //Left bar
-    LeftBar left;
+    //Left and Right bar
+    SidePanel left(sf::Vector2f(266.0f, 610.0f), sf::Vector2f(0.0f, 0.0f));
+    SidePanel right(sf::Vector2f(286.0f, 87.0f), sf::Vector2f(914.0f, 0.0f));
 
     //Background
     Background background;
@@ -50,7 +51,7 @@ int main()
 
     for (int i = 0; i <= 6; i++)
     {
-        sf::Vector2f position(293 + i * (68 + 20), 121);
+        sf::Vector2f position(293.0f + (float)i * (68.0f + 20.0f), 121.0f);
         daysoftheweek.push_back(DaysOfTheWeek(i, position, font));
     }
 
@@ -72,7 +73,7 @@ int main()
                 daysCount = 50;
             }
 
-            sf::Vector2f position(293 + j * (68 + 20), 151 + i * 72);
+            sf::Vector2f position(293.0f + (float)j * (68.0f + 20.0f), 151.0f + (float)i * 72.0f);
             daysboxes.push_back(DaysBoxes(position, font, daysCount, weekDay));
             weekDay--;
         }
@@ -122,6 +123,9 @@ int main()
         window.clear();
 
         background.Draw(window);
+        left.Draw(window);
+        right.Draw(window);
+        logo.Draw(window);
 
         for (DaysOfTheWeek& daysoftheweek : daysoftheweek)
             daysoftheweek.Draw(window);
@@ -130,10 +134,6 @@ int main()
             daysboxes.Draw(window);
 
         monthAndYear.Draw(window);
-
-        left.Draw(window);
-
-        logo.Draw(window);
 
         for (Button& button : button)
             button.Draw(window);

@@ -17,7 +17,7 @@
     <ClCompile Include="main.cpp">
       <Filter>Main</Filter>
     </ClCompile>
-    <ClCompile Include="LeftBar.cpp">
+    <ClCompile Include="SidePanel.cpp">
       <Filter>LeftBar</Filter>
     </ClCompile>
     <ClCompile Include="DaysOfTheWeek.cpp">
@@ -52,7 +52,7 @@
     <ClInclude Include="DaysBoxes.h">
       <Filter>Middle</Filter>
     </ClInclude>
-    <ClInclude Include="LeftBar.h">
+    <ClInclude Include="SidePanel.h">
       <Filter>LeftBar</Filter>
     </ClInclude>
     <ClInclude Include="Button.h">
