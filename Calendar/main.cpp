@@ -38,7 +38,6 @@ int main()
     sf::Font font; font.loadFromFile("Fonts/WILD_WORLD.otf");
 
     //Month and Year
-
         //Getting actual month and year
         time_t theTime = time(NULL);
         struct tm* aTime = localtime(&theTime);
@@ -88,11 +87,11 @@ int main()
     button.push_back(Button(sf::Vector2f(20, 490), font, "EXIT"));
 
     //Right bar text;
-    std::string day;
-
+    int day{};
     RightBarText rightbartext(font);
 
 
+    //Main loop
     while (window.isOpen())
     {
         sf::Event event;
@@ -130,6 +129,7 @@ int main()
         }
 
         rightbartext.Update(day, monthAndYear.GetMonthString(), right.GetSize(), right.GetPosition());
+
         //Draw
         window.clear();
 

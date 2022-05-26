@@ -21,6 +21,6 @@ public:
 	void Draw(sf::RenderWindow& window) { window.draw(body); window.draw(text); }
 	void Update(sf::RenderWindow& window, int day, int weekDay);
 	bool isClick(sf::RenderWindow& window);
-	std::string GetDay(sf::RenderWindow& window);
+	unsigned int GetDay(sf::RenderWindow& window);
 };
 
