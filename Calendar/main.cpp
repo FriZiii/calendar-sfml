@@ -29,6 +29,8 @@ int main()
     bool credits = false;
     bool settings = false;
 
+    bool isClicked = false;
+
     //Font
     sf::Font font; font.loadFromFile("Fonts/WILD_WORLD.otf");
 
@@ -95,7 +97,6 @@ int main()
     int day{};
     RightBarText rightbartext(font);
 
-    bool isClicked = false;
     //Main loop
     while (window.isOpen())
     {
@@ -167,9 +168,7 @@ int main()
         }
 
         //Draw
-        window.clear();
-
-        background.Draw(window);
+        window.clear(sf::Color::White);
         left.Draw(window);
         logo.Draw(window);
 
@@ -178,6 +177,8 @@ int main()
 
         if (home && !credits && !settings)
         {
+            background.Draw(window);
+
             right.Draw(window);
 
             for (DaysOfTheWeek& daysoftheweek : daysoftheweek)

@@ -2,10 +2,9 @@
 #include <SFML/Graphics.hpp>
 class Background
 {
-	sf::RectangleShape body;
-	sf::Texture texture;
+    sf::RectangleShape horizontalline;
+    sf::RectangleShape verticalline;
 public:
-	Background();
-	void Draw(sf::RenderWindow& window) { window.draw(body); }
+    Background();
+    void Draw(sf::RenderWindow& window);
 };
-

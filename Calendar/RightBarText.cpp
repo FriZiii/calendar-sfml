@@ -11,19 +11,19 @@ RightBarText::RightBarText(sf::Font& font)
 
 void RightBarText::Update(int day, std::string monthString, sf::Vector2f size, sf::Vector2f position)
 {
-	if (day % 10 == 1 || day % 20 == 1 || day % 30 == 1)
+	if ((day % 10 == 1 || day % 20 == 1 || day % 30 == 1) && day != 11)
 	{
 		dayString = std::to_string(day);
 		std::transform(monthString.begin(), monthString.end(), monthString.begin(), ::tolower),
 		textString = dayString + "st of " + monthString;
 	}
-	else if (day % 10 == 2 || day % 20 == 2 || day % 30 == 2)
+	else if ((day % 10 == 2 || day % 20 == 2 || day % 30 == 2) && day != 12)
 	{
 		dayString = std::to_string(day);
 		std::transform(monthString.begin(), monthString.end(), monthString.begin(), ::tolower),
 		textString = dayString + "nd of " + monthString;
 	}
-	else if (day % 10 == 3 || day % 20 == 3 || day % 30 == 3)
+	else if ((day % 10 == 3 || day % 20 == 3 || day % 30 == 3) && day != 13)
 	{
 		dayString = std::to_string(day);
 		std::transform(monthString.begin(), monthString.end(), monthString.begin(), ::tolower),
