@@ -3,7 +3,6 @@
 DaysBoxes::DaysBoxes(sf::Vector2f position, sf::Font &font, int day, int weekDay)
 {
 	this->grey = sf::Color(232, 232, 232);
-	this->lightPurple = sf::Color(123, 29, 211);
 
 	this->position = position;
 	this->isClicked = false;
@@ -31,13 +30,13 @@ DaysBoxes::DaysBoxes(sf::Vector2f position, sf::Font &font, int day, int weekDay
 	text.setPosition(body.getPosition().x + (body.getSize().x / 2.0f) - (text.getGlobalBounds().width / 2.0f), body.getPosition().y + (body.getSize().y / 2.0f) - (text.getGlobalBounds().height / 2.0f));
 }
 
-void DaysBoxes::Update(sf::RenderWindow& window, int day, int weekDay, sf::Color maincolor)
+void DaysBoxes::Update(sf::RenderWindow& window, int day, int weekDay, sf::Color maincolor, int R, int G, int B)
 {
 	this->day = day;
 	//Hover and click effect
 	if (sf::Mouse::getPosition(window).x > body.getGlobalBounds().left && sf::Mouse::getPosition(window).x < (body.getGlobalBounds().left + body.getGlobalBounds().width) && sf::Mouse::getPosition(window).y > body.getGlobalBounds().top && sf::Mouse::getPosition(window).y < (body.getGlobalBounds().top + body.getGlobalBounds().height))
 	{
-		this->body.setFillColor(lightPurple);
+		this->body.setFillColor(sf::Color(R,G,B,215));
 
 		if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
 		{

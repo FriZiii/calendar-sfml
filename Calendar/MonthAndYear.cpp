@@ -27,23 +27,31 @@ MonthAndYear::MonthAndYear(int month, int year, sf::Font &font, sf::Color mainco
 
 	//Buttons
 
+		this->grey = sf::Color(232, 232, 232);
+
 		//Right
-		this->texture.loadFromFile("Assets/MonthYearButtons.png");
-		buttonRight.setSize(sf::Vector2f(30.0f, 30.0f));
-		buttonRight.setTexture(&texture);
-		buttonRight.setTextureRect(sf::IntRect(0, 0, 135, 152));
-		buttonRight.setPosition(590.5f + 250.0f, (83.0f / 2.0f) - (buttonRight.getSize().y / 2.0f) + 6.0f);
+		buttonRight.setPointCount(3);
+		buttonRight.setPoint(0, sf::Vector2f(46.0f / 10.0f, 400.0f / 10.0f));
+		buttonRight.setPoint(1, sf::Vector2f(-300.0f / 10.0f, 200.0f / 10.0f));
+		buttonRight.setPoint(2, sf::Vector2f(- 300.0f / 10.0f, 600.0f / 10.0f));
+
+		buttonRight.setFillColor(grey);
+		buttonRight.setPosition(590.5f + 250.0f, (83.0f / 2.0f) - (buttonRight.getGlobalBounds().height) + 6.0f);
 
 		//Left
-		this->texture.loadFromFile("Assets/MonthYearButtons.png");
-		buttonLeft.setSize(sf::Vector2f(30.0f, 30.0f));
-		buttonLeft.setTexture(&texture);
-		buttonLeft.setTextureRect(sf::IntRect(135, 0, 135, 152));
-		buttonLeft.setPosition(590.5f - 250.0f, (83.0f / 2.0f) - (buttonLeft.getSize().y / 2.0f) + 6.0f);
+		buttonLeft.setPointCount(3);
+		buttonLeft.setPoint(0, sf::Vector2f(-46.0f/10.0f, 400.0f/10.0f));
+		buttonLeft.setPoint(1, sf::Vector2f(300.0f/10.0f, 200.0f/10.0f));
+		buttonLeft.setPoint(2, sf::Vector2f(300.0f/10.0f, 600.0f/10.0f));
+
+		buttonLeft.setFillColor(grey);
+		buttonLeft.setPosition(590.5f - 250.0f, (83.0f / 2.0f) - (buttonLeft.getGlobalBounds().height) + 6.0f);
 }
 
-void MonthAndYear::Update(sf::RenderWindow& window)
+void MonthAndYear::Update(sf::RenderWindow& window, sf::Color maincolor)
 {
+	textMonth.setFillColor(maincolor);
+
 	//Left
 	if (sf::Mouse::getPosition(window).x > buttonLeft.getGlobalBounds().left && sf::Mouse::getPosition(window).x < (buttonLeft.getGlobalBounds().left + buttonLeft.getGlobalBounds().width) && sf::Mouse::getPosition(window).y > buttonLeft.getGlobalBounds().top && sf::Mouse::getPosition(window).y < (buttonLeft.getGlobalBounds().top + buttonLeft.getGlobalBounds().height))
 	{
@@ -77,26 +85,26 @@ void MonthAndYear::Update(sf::RenderWindow& window)
 	}
 }
 
-void MonthAndYear::HoverEffect(sf::RenderWindow& window)
+void MonthAndYear::HoverEffect(sf::RenderWindow& window, sf::Color maincolor)
 {
 	//Left
 	if (sf::Mouse::getPosition(window).x > buttonLeft.getGlobalBounds().left && sf::Mouse::getPosition(window).x < (buttonLeft.getGlobalBounds().left + buttonLeft.getGlobalBounds().width) && sf::Mouse::getPosition(window).y > buttonLeft.getGlobalBounds().top && sf::Mouse::getPosition(window).y < (buttonLeft.getGlobalBounds().top + buttonLeft.getGlobalBounds().height))
 	{
-		buttonLeft.setTextureRect(sf::IntRect(135, 152, 135, 152));
+		buttonLeft.setFillColor(maincolor);
 	}
 	else
 	{
-		buttonLeft.setTextureRect(sf::IntRect(135, 0, 135, 152));
+		buttonLeft.setFillColor(grey);
 	}
 
 	//Right
 	if (sf::Mouse::getPosition(window).x > buttonRight.getGlobalBounds().left && sf::Mouse::getPosition(window).x < (buttonRight.getGlobalBounds().left + buttonRight.getGlobalBounds().width) && sf::Mouse::getPosition(window).y > buttonRight.getGlobalBounds().top && sf::Mouse::getPosition(window).y < (buttonRight.getGlobalBounds().top + buttonRight.getGlobalBounds().height))
 	{
-		buttonRight.setTextureRect(sf::IntRect(0, 152, 135, 152));
+		buttonRight.setFillColor(maincolor);
 	}
 	else
 	{
-		buttonRight.setTextureRect(sf::IntRect(0, 0, 135, 152));
+		buttonRight.setFillColor(grey);
 	}
 }
 

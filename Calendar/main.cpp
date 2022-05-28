@@ -32,7 +32,10 @@ int main()
 
     bool isClicked = false;
 
-    sf::Color maincolor(93, 9, 172); //Purple
+    int R = 93;
+    int G = 9;
+    int B = 172;
+    sf::Color maincolor(R, G, B); //Purple
 
     //Font
     sf::Font font; font.loadFromFile("Fonts/WILD_WORLD.otf");
@@ -128,7 +131,7 @@ int main()
         //Updates
         for (Button& button : button)
             button.Update(window, maincolor);
-
+        left.Update(maincolor);
         if (button[0].IsClicked(window))
         {
             home = true;
@@ -154,12 +157,13 @@ int main()
 
         if (home && !credits && !settings)
         {
+            right.Update(maincolor);
             if (isClicked)
             {
-                monthAndYear.Update(window);
+                monthAndYear.Update(window,maincolor);
                 isClicked = false;
             }
-            monthAndYear.HoverEffect(window);
+            monthAndYear.HoverEffect(window, maincolor);
 
 
             int daysCount = 0;
@@ -173,7 +177,7 @@ int main()
                     else
                         daysCount = 50;//otherwise, we set a placeholder
                 }
-                daysboxes.Update(window, daysCount, weekDay, maincolor);
+                daysboxes.Update(window, daysCount, weekDay, maincolor, R, G , B);
                 weekDay--;
 
                 if (daysboxes.isClick(window))
@@ -184,7 +188,17 @@ int main()
         }
         if (!home && !credits && settings)
         {
+            if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
+            {
+                for (ColorPalettes& colorpalettes : colorpalettes)
+                {
+                    R = colorpalettes.getColorR(window);
+                    G = colorpalettes.getColorG(window);
+                    B = colorpalettes.getColorB(window);
 
+                }
+            }
+            maincolor = sf::Color(R, G, B);
         }
 
         //Draw

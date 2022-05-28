@@ -9,6 +9,11 @@ SidePanel::SidePanel(sf::Vector2f size, sf::Vector2f position, sf::Color maincol
 	body.setFillColor(maincolor);
 }
 
+void SidePanel::Update(sf::Color maincolor)
+{
+	body.setFillColor(maincolor);
+}
+
 sf::Vector2f SidePanel::GetSize()
 {
 	return this->size;

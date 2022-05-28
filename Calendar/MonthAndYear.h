@@ -18,22 +18,21 @@ class MonthAndYear
 	int month = 5;
 
 	//Button
-	sf::RectangleShape buttonLeft;
-	sf::RectangleShape buttonRight;
+	sf::ConvexShape buttonLeft;
+	sf::ConvexShape buttonRight;
 
 	sf::Vector2f leftPosition;
 	sf::Vector2f rightPosition;
 
-	sf::Texture texture;
-	sf::Texture textureHover;
+	sf::Color grey;
 
 	bool isClicked;
 
 public:
 	MonthAndYear(int month, int year, sf::Font &font, sf::Color maincolor);
 	void Draw(sf::RenderWindow& window) { window.draw(textMonth); window.draw(textYear); window.draw(buttonLeft); window.draw(buttonRight);}
-	void Update(sf::RenderWindow& window);
-	void HoverEffect(sf::RenderWindow& window);
+	void Update(sf::RenderWindow& window, sf::Color maincolor);
+	void HoverEffect(sf::RenderWindow& window, sf::Color maincolor);
 	unsigned int GetMonth() { return month; }
 	unsigned int GetYear(){ return year; }
 	std::string GetMonthString();

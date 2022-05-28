@@ -9,6 +9,7 @@ class SidePanel
 public:
 	SidePanel(sf::Vector2f size, sf::Vector2f position, sf::Color maincolor);
 	void Draw(sf::RenderWindow& window) { window.draw(body); }
+	void Update(sf::Color maincolor);
 	sf::Vector2f GetSize();
 	sf::Vector2f GetPosition();
 };
