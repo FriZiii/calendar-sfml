@@ -30,7 +30,7 @@ class MonthAndYear
 	bool isClicked;
 
 public:
-	MonthAndYear(int month, int year, sf::Font &font);
+	MonthAndYear(int month, int year, sf::Font &font, sf::Color maincolor);
 	void Draw(sf::RenderWindow& window) { window.draw(textMonth); window.draw(textYear); window.draw(buttonLeft); window.draw(buttonRight);}
 	void Update(sf::RenderWindow& window);
 	void HoverEffect(sf::RenderWindow& window);

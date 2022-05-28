@@ -1,17 +1,16 @@
 #include "MonthAndYear.h"
 
-MonthAndYear::MonthAndYear(int month, int year, sf::Font &font)
+MonthAndYear::MonthAndYear(int month, int year, sf::Font &font, sf::Color maincolor)
 {
 	this->month = month;
 	this->year = year;
 	this->font = font;
 
 	//Month
-	sf::Color Purple(93, 9, 172);
 
 	textMonth.setFont(font);
 	textMonth.setCharacterSize(42);
-	textMonth.setFillColor(Purple);
+	textMonth.setFillColor(maincolor);
 
 	textMonth.setString(textStringMonth[month]);
 

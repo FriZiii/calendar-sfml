@@ -17,7 +17,7 @@ class Button
 public:
 	Button(sf::Vector2f position, sf::Font& font, std::string textString);
 	void Draw(sf::RenderWindow& window) { window.draw(body); window.draw(text); }
-	void Update(sf::RenderWindow& window);
+	void Update(sf::RenderWindow& window, sf::Color maincolor);
 	bool IsClicked(sf::RenderWindow& window);
 };
 

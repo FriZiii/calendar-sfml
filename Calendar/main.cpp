@@ -32,6 +32,8 @@ int main()
 
     bool isClicked = false;
 
+    sf::Color maincolor(93, 9, 172); //Purple
+
     //Font
     sf::Font font; font.loadFromFile("Fonts/WILD_WORLD.otf");
 
@@ -39,8 +41,8 @@ int main()
     Background background;
 
     //Left and Right bar
-    SidePanel left(sf::Vector2f(266.0f, 610.0f), sf::Vector2f(0.0f, 0.0f));
-    SidePanel right(sf::Vector2f(286.0f, 87.0f), sf::Vector2f(914.0f, 0.0f));
+    SidePanel left(sf::Vector2f(266.0f, 610.0f), sf::Vector2f(0.0f, 0.0f), maincolor);
+    SidePanel right(sf::Vector2f(286.0f, 87.0f), sf::Vector2f(914.0f, 0.0f), maincolor);
 
     //Logo
     Logo logo;
@@ -59,7 +61,7 @@ int main()
         int actualmonth = aTime->tm_mon + 1;
         int actualyear = aTime->tm_year + 1900;
         int actualday = aTime->tm_yday;
-    MonthAndYear monthAndYear(actualmonth, actualyear, font);
+    MonthAndYear monthAndYear(actualmonth, actualyear, font, maincolor);
 
     //Days of the week
     std::vector<DaysOfTheWeek>daysoftheweek;
@@ -125,7 +127,7 @@ int main()
 
         //Updates
         for (Button& button : button)
-            button.Update(window);
+            button.Update(window, maincolor);
 
         if (button[0].IsClicked(window))
         {
@@ -171,7 +173,7 @@ int main()
                     else
                         daysCount = 50;//otherwise, we set a placeholder
                 }
-                daysboxes.Update(window, daysCount, weekDay);
+                daysboxes.Update(window, daysCount, weekDay, maincolor);
                 weekDay--;
 
                 if (daysboxes.isClick(window))

@@ -26,7 +26,7 @@ Button::Button(sf::Vector2f position, sf::Font &font, std::string textString)
 
 }
 
-void Button::Update(sf::RenderWindow& window)
+void Button::Update(sf::RenderWindow& window, sf::Color maincolor)
 {
 	if (sf::Mouse::getPosition(window).x > body.getGlobalBounds().left && sf::Mouse::getPosition(window).x < (body.getGlobalBounds().left + body.getGlobalBounds().width) && sf::Mouse::getPosition(window).y > body.getGlobalBounds().top && sf::Mouse::getPosition(window).y < (body.getGlobalBounds().top + body.getGlobalBounds().height))
 	{
@@ -39,8 +39,7 @@ void Button::Update(sf::RenderWindow& window)
 		body.setPosition(position.x - 2.0f, position.y + 1.0f);
 
 		//Text
-		sf::Color Purple(93, 9, 172);
-		text.setFillColor(Purple);
+		text.setFillColor(maincolor);
 	}
 	else
 	{
