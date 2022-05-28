@@ -29,7 +29,7 @@ void RightBarText::Update(int day, std::string monthString, sf::Vector2f size, s
 		std::transform(monthString.begin(), monthString.end(), monthString.begin(), ::tolower),
 		textString = dayString + "rd of " + monthString;
 	}
-	else if (day == 0 || day >=50)
+	else if (day == 0 || day >= 50)
 	{
 		dayString = "";
 		textString = monthString;

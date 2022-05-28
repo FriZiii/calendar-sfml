@@ -15,6 +15,9 @@
     <Filter Include="RightBar">
       <UniqueIdentifier>{6590cbf9-11f7-4c2c-9090-649fa4753993}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Settings">
+      <UniqueIdentifier>{450eeaa0-f6a6-4b7d-a86d-7d5f3e9a186d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DaysOfTheWeek.cpp">
@@ -47,6 +50,9 @@
     <ClCompile Include="SidePanel.cpp">
       <Filter>Main</Filter>
     </ClCompile>
+    <ClCompile Include="ColorPalettes.cpp">
+      <Filter>Settings</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Background.h">
@@ -75,6 +81,9 @@
     </ClInclude>
     <ClInclude Include="SidePanel.h">
       <Filter>Main</Filter>
+    </ClInclude>
+    <ClInclude Include="ColorPalettes.h">
+      <Filter>Settings</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

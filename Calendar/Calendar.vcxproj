@@ -153,6 +153,7 @@
   <ItemGroup>
     <ClCompile Include="Background.cpp" />
     <ClCompile Include="Button.cpp" />
+    <ClCompile Include="ColorPalettes.cpp" />
     <ClCompile Include="DaysBoxes.cpp" />
     <ClCompile Include="DaysOfTheWeek.cpp" />
     <ClCompile Include="RightBarText.cpp" />
@@ -165,6 +166,7 @@
   <ItemGroup>
     <ClInclude Include="Background.h" />
     <ClInclude Include="Button.h" />
+    <ClInclude Include="ColorPalettes.h" />
     <ClInclude Include="DaysBoxes.h" />
     <ClInclude Include="DaysOfTheWeek.h" />
     <ClInclude Include="RightBarText.h" />

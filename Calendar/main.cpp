@@ -9,6 +9,7 @@
 #include "MonthAndYear.h"
 #include "Functions.h"
 #include "RightBarText.h"
+#include "ColorPalettes.h"
 
 #include <vector>
 #include <time.h>
@@ -55,10 +56,10 @@ int main()
         //Getting actual month and year
         time_t theTime = time(NULL);
         struct tm* aTime = localtime(&theTime);
-        int month = aTime->tm_mon + 1;
-        int year = aTime->tm_year + 1900;
-
-    MonthAndYear monthAndYear(month, year, font);
+        int actualmonth = aTime->tm_mon + 1;
+        int actualyear = aTime->tm_year + 1900;
+        int actualday = aTime->tm_yday;
+    MonthAndYear monthAndYear(actualmonth, actualyear, font);
 
     //Days of the week
     std::vector<DaysOfTheWeek>daysoftheweek;
@@ -97,6 +98,17 @@ int main()
     int day{};
     RightBarText rightbartext(font);
 
+    //Settings 
+        //ColorPallets
+        std::vector<ColorPalettes> colorpalettes;
+        int k = 0;
+        for (int i = 0; i < 10; i++)
+        {
+            sf::Vector2f position(344.0f + ((float)i * 79.0f), 115.0f);
+            colorpalettes.push_back(ColorPalettes(position, k));
+            k++;
+        }
+
     //Main loop
     while (window.isOpen())
     {
@@ -134,7 +146,9 @@ int main()
             credits = true;
         }
         else if (button[3].IsClicked(window))
+        {
             window.close();
+        }
 
         if (home && !credits && !settings)
         {
@@ -166,6 +180,10 @@ int main()
 
             rightbartext.Update(day, monthAndYear.GetMonthString(), right.GetSize(), right.GetPosition());
         }
+        if (!home && !credits && settings)
+        {
+
+        }
 
         //Draw
         window.clear(sf::Color::White);
@@ -190,6 +208,11 @@ int main()
             monthAndYear.Draw(window);
 
             rightbartext.Draw(window);
+        }
+        if (!home && !credits && settings)
+        {
+            for (ColorPalettes& colorpalettes : colorpalettes)
+                colorpalettes.Draw(window);
         }
         window.display();
     }
