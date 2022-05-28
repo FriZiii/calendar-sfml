@@ -162,6 +162,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MonthAndYear.cpp" />
     <ClCompile Include="Functions.cpp" />
+    <ClCompile Include="Text.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Background.h" />
@@ -174,6 +175,7 @@
     <ClInclude Include="Logo.h" />
     <ClInclude Include="MonthAndYear.h" />
     <ClInclude Include="Functions.h" />
+    <ClInclude Include="Text.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -4,6 +4,7 @@ class ColorPalettes
 {
 	sf::RectangleShape body;
 	sf::Vector2f position;
+	sf::Vector2f size;
 	
 	int colorIterator;
 	sf::Color color;
@@ -19,8 +20,9 @@ class ColorPalettes
 public:
 	ColorPalettes(sf::Vector2f position, int colorIterator);
 	void Draw(sf::RenderWindow& window) { window.draw(body); }
+	void Update(sf::RenderWindow & window);
 	int getColorR(sf::RenderWindow& window);
 	int getColorG(sf::RenderWindow& window);
 	int getColorB(sf::RenderWindow& window);
-};
 
+};

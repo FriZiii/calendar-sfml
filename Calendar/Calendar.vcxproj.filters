@@ -53,6 +53,9 @@
     <ClCompile Include="ColorPalettes.cpp">
       <Filter>Settings</Filter>
     </ClCompile>
+    <ClCompile Include="Text.cpp">
+      <Filter>Main</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Background.h">
@@ -84,6 +87,9 @@
     </ClInclude>
     <ClInclude Include="ColorPalettes.h">
       <Filter>Settings</Filter>
+    </ClInclude>
+    <ClInclude Include="Text.h">
+      <Filter>Middle</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

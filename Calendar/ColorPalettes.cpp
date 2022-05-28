@@ -4,9 +4,33 @@ ColorPalettes::ColorPalettes(sf::Vector2f position, int colorIterator)
 {
 	this->colorIterator = colorIterator;
 	this->position = position;
-	body.setSize(sf::Vector2f(69.0f, 69.0f));
+	this->size = sf::Vector2f(70.0f, 70.0f);
+	body.setSize(size);
 	body.setPosition(position);
+	body.setOrigin(sf::Vector2f(body.getSize().x / 2.0f, body.getSize().y / 2.0f));
 	this->body.setFillColor(sf::Color(this->colors[colorIterator].x, this->colors[colorIterator].y, this->colors[colorIterator].z));
+}
+
+void ColorPalettes::Update(sf::RenderWindow& window)
+{
+	if (sf::Mouse::getPosition(window).x > body.getGlobalBounds().left && sf::Mouse::getPosition(window).x < (body.getGlobalBounds().left + body.getGlobalBounds().width) && sf::Mouse::getPosition(window).y > body.getGlobalBounds().top && sf::Mouse::getPosition(window).y < (body.getGlobalBounds().top + body.getGlobalBounds().height))
+	{
+		if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
+		{
+			this->body.setSize(sf::Vector2f(size.x + 10.0f, size.y+10.0f));
+			body.setOrigin(sf::Vector2f(body.getSize().x / 2.0f, body.getSize().y / 2.0f));
+		}
+		else
+		{
+			this->body.setSize(size);
+			body.setOrigin(sf::Vector2f(body.getSize().x / 2.0f, body.getSize().y / 2.0f));
+		}
+	}
+	else
+	{
+		this->body.setSize(size);
+		body.setOrigin(sf::Vector2f(body.getSize().x / 2.0f, body.getSize().y / 2.0f));
+	}
 }
 
 int ColorPalettes::getColorR(sf::RenderWindow& window)

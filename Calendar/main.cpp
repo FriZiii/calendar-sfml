@@ -10,6 +10,7 @@
 #include "Functions.h"
 #include "RightBarText.h"
 #include "ColorPalettes.h"
+#include "Text.h"
 
 #include <vector>
 #include <time.h>
@@ -105,11 +106,14 @@ int main()
 
     //Settings 
         //ColorPallets
+        Text colorpalettesText("PICK YOUR ", sf::Vector2f(455, 25), font, "COLOR", maincolor);
+        Text scrollbuttonText("or create your own", sf::Vector2f(470, 160), font);
+
         std::vector<ColorPalettes> colorpalettes;
         int k = 0;
         for (int i = 0; i < 10; i++)
         {
-            sf::Vector2f position(344.0f + ((float)i * 79.0f), 115.0f);
+            sf::Vector2f position(344.0f + 30.0f + ( (float)i * 80.0f), 115.0f);
             colorpalettes.push_back(ColorPalettes(position, k));
             k++;
         }
@@ -188,6 +192,10 @@ int main()
         }
         if (!home && !credits && settings)
         {
+            for (ColorPalettes & colorpalettes : colorpalettes)
+            {
+                colorpalettes.Update(window);
+            }
             if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
             {
                 for (ColorPalettes& colorpalettes : colorpalettes)
@@ -199,6 +207,8 @@ int main()
                 }
             }
             maincolor = sf::Color(R, G, B);
+
+            colorpalettesText.Update(maincolor);
         }
 
         //Draw
@@ -227,8 +237,10 @@ int main()
         }
         if (!home && !credits && settings)
         {
+            colorpalettesText.Draw(window);
             for (ColorPalettes& colorpalettes : colorpalettes)
                 colorpalettes.Draw(window);
+            scrollbuttonText.Draw(window);
         }
         window.display();
     }
