@@ -1,9 +1,12 @@
 #include "Logo.h"
 
-Logo::Logo()
+Logo::Logo(sf::Vector2f position, sf::Vector2f size, std::string file)
 {
-	this->texture.loadFromFile("Assets/Logo.png");
-	body.setSize(sf::Vector2f(105.f, 105.f));
-	body.setPosition(sf::Vector2f(133.0f - (105.f / 2.0f), 45.0f));
+	this->position = position;
+	this->size = size;
+	this->file = file;
+	this->texture.loadFromFile(file);
+	body.setSize(sf::Vector2f(size));
+	body.setPosition(sf::Vector2f(position.x - (body.getSize().x / 2.0f), position.y));
 	body.setTexture(&texture);
 }

@@ -49,7 +49,7 @@ int main()
     SidePanel right(sf::Vector2f(286.0f, 87.0f), sf::Vector2f(914.0f, 0.0f), maincolor);
 
     //Logo
-    Logo logo;
+    Logo logo(sf::Vector2f(133.0f, 45.0f), sf::Vector2f(105,105), "Assets/Logo.png");
 
     //Buttons left bar
     std::vector<Button>button;
@@ -106,8 +106,8 @@ int main()
 
     //Settings 
         //ColorPallets
-        Text colorpalettesText("PICK YOUR ", sf::Vector2f(455, 25), font, "COLOR", maincolor);
-        Text scrollbuttonText("or create your own", sf::Vector2f(470, 160), font);
+        Text colorpalettesText("PICK YOUR ", sf::Vector2f(455.0f, 25.0f), font, "COLOR", maincolor, 40);
+        Text scrollbuttonText("or create your own", sf::Vector2f(470.0f, 160.0f), font, 40);
 
         std::vector<ColorPalettes> colorpalettes;
         int k = 0;
@@ -117,6 +117,13 @@ int main()
             colorpalettes.push_back(ColorPalettes(position, k));
             k++;
         }
+
+    //Credits
+
+    Logo antarmy(sf::Vector2f(1080.0f, 5.0f), sf::Vector2f(1162/10,1276/10), "Assets/AntArmy.png");
+
+    std::vector<Text> creditstext;
+    creditstext.push_back(Text("ANT ARMY STUDIOS", sf::Vector2f(455, 50), font, 32));
 
     //Main loop
     while (window.isOpen())
@@ -241,6 +248,12 @@ int main()
             for (ColorPalettes& colorpalettes : colorpalettes)
                 colorpalettes.Draw(window);
             scrollbuttonText.Draw(window);
+        }
+        if (!home && credits && !settings)
+        {
+            antarmy.Draw(window);
+            for (Text& creditstext : creditstext)
+                creditstext.Draw(window);
         }
         window.display();
     }

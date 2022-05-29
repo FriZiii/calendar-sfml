@@ -1,6 +1,6 @@
 #include "Text.h"
 
-Text::Text(std::string textString, sf::Vector2f position, sf::Font &font)
+Text::Text(std::string textString, sf::Vector2f position, sf::Font &font, int fontSize)
 {
 	this->font = font;
 	this->position = position;
@@ -9,11 +9,11 @@ Text::Text(std::string textString, sf::Vector2f position, sf::Font &font)
 	text.setFont(font);
 	text.setString(textString);
 	text.setFillColor(sf::Color::Black);
-	text.setCharacterSize(40);
+	text.setCharacterSize(fontSize);
 	text.setPosition(position);
 }
 
-Text::Text(std::string textString, sf::Vector2f position, sf::Font &font, std::string coloredtextString, sf::Color maincolor)
+Text::Text(std::string textString, sf::Vector2f position, sf::Font &font, std::string coloredtextString, sf::Color maincolor, int fontSize)
 {
 	this->font = font;
 	this->position = position;
@@ -22,7 +22,7 @@ Text::Text(std::string textString, sf::Vector2f position, sf::Font &font, std::s
 	text.setFont(font);
 	text.setString(textString);
 	text.setFillColor(sf::Color::Black);
-	text.setCharacterSize(40);
+	text.setCharacterSize(fontSize);
 	text.setPosition(position);
 
 	this->coloredtextString = coloredtextString;
@@ -30,7 +30,7 @@ Text::Text(std::string textString, sf::Vector2f position, sf::Font &font, std::s
 	coloredText.setFont(font);
 	coloredText.setString(coloredtextString);
 	coloredText.setFillColor(maincolor);
-	coloredText.setCharacterSize(40);
+	coloredText.setCharacterSize(fontSize);
 	coloredText.setPosition(text.getGlobalBounds().left + text.getGlobalBounds().width, position.y);
 }
 
