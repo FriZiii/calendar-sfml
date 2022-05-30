@@ -154,9 +154,11 @@
     <ClCompile Include="Background.cpp" />
     <ClCompile Include="Button.cpp" />
     <ClCompile Include="ColorPalettes.cpp" />
+    <ClCompile Include="CreateYourOwnColorButton.cpp" />
     <ClCompile Include="DaysBoxes.cpp" />
     <ClCompile Include="DaysOfTheWeek.cpp" />
     <ClCompile Include="RightBarText.cpp" />
+    <ClCompile Include="ScrollButton.cpp" />
     <ClCompile Include="SidePanel.cpp" />
     <ClCompile Include="Logo.cpp" />
     <ClCompile Include="main.cpp" />
@@ -168,9 +170,11 @@
     <ClInclude Include="Background.h" />
     <ClInclude Include="Button.h" />
     <ClInclude Include="ColorPalettes.h" />
+    <ClInclude Include="CreateYourOwnColorButton.h" />
     <ClInclude Include="DaysBoxes.h" />
     <ClInclude Include="DaysOfTheWeek.h" />
     <ClInclude Include="RightBarText.h" />
+    <ClInclude Include="ScrollButton.h" />
     <ClInclude Include="SidePanel.h" />
     <ClInclude Include="Logo.h" />
     <ClInclude Include="MonthAndYear.h" />

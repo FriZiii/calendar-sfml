@@ -11,6 +11,8 @@
 #include "RightBarText.h"
 #include "ColorPalettes.h"
 #include "Text.h"
+#include "ScrollButton.h"
+#include "CreateYourOwnColorButton.h"
 
 #include <vector>
 #include <time.h>
@@ -118,6 +120,12 @@ int main()
             k++;
         }
 
+        ScrollButton scrollR(sf::Vector2f(472, 250));
+        ScrollButton scrollG(sf::Vector2f(472, 300));
+        ScrollButton scrollB(sf::Vector2f(472, 350));
+
+        CreateYourOwnColorButton buttoncolor(sf::Vector2f(800, 500));
+
     //Credits
 
     Logo antarmy(sf::Vector2f(1080.0f, 5.0f), sf::Vector2f(1162/10,1276/10), "Assets/AntArmy.png");
@@ -188,7 +196,7 @@ int main()
                     else
                         daysCount = 50;//otherwise, we set a placeholder
                 }
-                daysboxes.Update(window, daysCount, weekDay, maincolor, R, G , B);
+                daysboxes.Update(window, daysCount, weekDay, maincolor, R, G, B);
                 weekDay--;
 
                 if (daysboxes.isClick(window))
@@ -203,17 +211,38 @@ int main()
             {
                 colorpalettes.Update(window);
             }
-            if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
+            if((buttoncolor.OwnColor()) == false)
             {
-                for (ColorPalettes& colorpalettes : colorpalettes)
+                if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
                 {
-                    R = colorpalettes.getColorR(window);
-                    G = colorpalettes.getColorG(window);
-                    B = colorpalettes.getColorB(window);
+                    for (ColorPalettes& colorpalettes : colorpalettes)
+                    {
+                        R = colorpalettes.getColorR(window);
+                        G = colorpalettes.getColorG(window);
+                        B = colorpalettes.getColorB(window);
 
+                        maincolor = sf::Color(R, G, B);
+
+                    }
                 }
             }
-            maincolor = sf::Color(R, G, B);
+
+            scrollR.Update(window, "R");
+            scrollG.Update(window, "G");
+            scrollB.Update(window, "B");
+
+            if (buttoncolor.OwnColor())
+            {
+                R = scrollR.GetIterator();
+                G = scrollG.GetIterator();
+                B = scrollB.GetIterator();
+
+                if(isClicked)
+                    maincolor = sf::Color(R, G, B);
+            }
+
+            sf::Color ownColor = sf::Color(scrollR.GetIterator(), scrollG.GetIterator(), scrollB.GetIterator());
+            buttoncolor.Update(window, ownColor);
 
             colorpalettesText.Update(maincolor);
         }
@@ -248,6 +277,11 @@ int main()
             for (ColorPalettes& colorpalettes : colorpalettes)
                 colorpalettes.Draw(window);
             scrollbuttonText.Draw(window);
+
+            scrollR.Draw(window);
+            scrollG.Draw(window);
+            scrollB.Draw(window);
+            buttoncolor.Draw(window);
         }
         if (!home && credits && !settings)
         {
