@@ -108,26 +108,25 @@ int main()
 
     //Settings 
         //ColorPallets
-        Text colorpalettesText("PICK YOUR ", sf::Vector2f(455.0f, 25.0f), font, "COLOR", maincolor, 40);
-        Text scrollbuttonText("or create your own", sf::Vector2f(470.0f, 160.0f), font, 40);
+        Text colorpalettesText("PICK YOUR ", sf::Vector2f(455.0f, 75.0f), font, "COLOR", maincolor, 40);
+        Text scrollbuttonText("or create your own", sf::Vector2f(470.0f, 230.0f), font, 40);
 
         std::vector<ColorPalettes> colorpalettes;
         int k = 0;
         for (int i = 0; i < 10; i++)
         {
-            sf::Vector2f position(344.0f + 30.0f + ( (float)i * 80.0f), 115.0f);
+            sf::Vector2f position(344.0f + 30.0f + ( (float)i * 80.0f), 175.0f);
             colorpalettes.push_back(ColorPalettes(position, k));
             k++;
         }
+        //ScrollButtons
+        ScrollButton scrollR(sf::Vector2f(344.0f, 320));
+        ScrollButton scrollG(sf::Vector2f(344.0f, 370));
+        ScrollButton scrollB(sf::Vector2f(344.0f, 420));
 
-        ScrollButton scrollR(sf::Vector2f(472, 250));
-        ScrollButton scrollG(sf::Vector2f(472, 300));
-        ScrollButton scrollB(sf::Vector2f(472, 350));
-
-        CreateYourOwnColorButton buttoncolor(sf::Vector2f(800, 500));
+        CreateYourOwnColorButton buttoncolor(sf::Vector2f(1000, 380));
 
     //Credits
-
     Logo antarmy(sf::Vector2f(1080.0f, 5.0f), sf::Vector2f(1162/10,1276/10), "Assets/AntArmy.png");
 
     std::vector<Text> creditstext;
@@ -211,8 +210,6 @@ int main()
             {
                 colorpalettes.Update(window);
             }
-            if((buttoncolor.OwnColor()) == false)
-            {
                 if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
                 {
                     for (ColorPalettes& colorpalettes : colorpalettes)
@@ -225,21 +222,18 @@ int main()
 
                     }
                 }
-            }
 
             scrollR.Update(window, "R");
             scrollG.Update(window, "G");
             scrollB.Update(window, "B");
 
-            if (buttoncolor.OwnColor())
-            {
-                R = scrollR.GetIterator();
-                G = scrollG.GetIterator();
-                B = scrollB.GetIterator();
-
-                if(isClicked)
-                    maincolor = sf::Color(R, G, B);
-            }
+           if (buttoncolor.isHover(window) && sf::Mouse::isButtonPressed(sf::Mouse::Left))
+           {
+               R = scrollR.GetIterator();
+               G = scrollG.GetIterator();
+               B = scrollB.GetIterator();
+               maincolor = sf::Color(R, G, B);
+           }
 
             sf::Color ownColor = sf::Color(scrollR.GetIterator(), scrollG.GetIterator(), scrollB.GetIterator());
             buttoncolor.Update(window, ownColor);

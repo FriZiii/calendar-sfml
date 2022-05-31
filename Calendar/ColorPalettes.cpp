@@ -15,16 +15,8 @@ void ColorPalettes::Update(sf::RenderWindow& window)
 {
 	if (sf::Mouse::getPosition(window).x > body.getGlobalBounds().left && sf::Mouse::getPosition(window).x < (body.getGlobalBounds().left + body.getGlobalBounds().width) && sf::Mouse::getPosition(window).y > body.getGlobalBounds().top && sf::Mouse::getPosition(window).y < (body.getGlobalBounds().top + body.getGlobalBounds().height))
 	{
-		if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
-		{
-			this->body.setSize(sf::Vector2f(size.x + 10.0f, size.y+10.0f));
-			body.setOrigin(sf::Vector2f(body.getSize().x / 2.0f, body.getSize().y / 2.0f));
-		}
-		else
-		{
-			this->body.setSize(size);
-			body.setOrigin(sf::Vector2f(body.getSize().x / 2.0f, body.getSize().y / 2.0f));
-		}
+		this->body.setSize(sf::Vector2f(size.x + 10.0f, size.y+10.0f));
+		body.setOrigin(sf::Vector2f(body.getSize().x / 2.0f, body.getSize().y / 2.0f));
 	}
 	else
 	{

@@ -8,7 +8,6 @@ CreateYourOwnColorButton::CreateYourOwnColorButton(sf::Vector2f position)
 	body.setSize(size);
 	body.setOrigin(sf::Vector2f(size.x /2, size.y /2));
 	body.setPosition(position);
-	this->Owncolorbool = false;
 }
 
 void CreateYourOwnColorButton::Update(sf::RenderWindow& window, sf::Color maincolor)
@@ -18,9 +17,6 @@ void CreateYourOwnColorButton::Update(sf::RenderWindow& window, sf::Color mainco
 	{
 		body.setSize(hoversize);
 		body.setOrigin(sf::Vector2f(hoversize.x / 2, hoversize.y / 2));
-
-		this->Owncolorbool = !this->Owncolorbool;
-
 	}
 	else
 	{
@@ -28,4 +24,16 @@ void CreateYourOwnColorButton::Update(sf::RenderWindow& window, sf::Color mainco
 		body.setOrigin(sf::Vector2f(size.x / 2, size.y / 2));
 	}
 	body.setFillColor(maincolor);
+}
+
+bool CreateYourOwnColorButton::isHover(sf::RenderWindow& window)
+{
+	if (sf::Mouse::getPosition(window).x > body.getGlobalBounds().left && sf::Mouse::getPosition(window).x < body.getGlobalBounds().left + body.getGlobalBounds().width && sf::Mouse::getPosition(window).y > body.getGlobalBounds().top && sf::Mouse::getPosition(window).y < body.getGlobalBounds().top + body.getGlobalBounds().height)
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
 }
