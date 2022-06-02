@@ -25,41 +25,33 @@ void ColorPalettes::Update(sf::RenderWindow& window)
 	}
 }
 
+bool ColorPalettes::isHover(sf::RenderWindow& window)
+{
+	if (sf::Mouse::getPosition(window).x > body.getGlobalBounds().left && sf::Mouse::getPosition(window).x < (body.getGlobalBounds().left + body.getGlobalBounds().width) && sf::Mouse::getPosition(window).y > body.getGlobalBounds().top && sf::Mouse::getPosition(window).y < (body.getGlobalBounds().top + body.getGlobalBounds().height))
+	{
+		return true;
+	}
+	return false;
+}
+
 int ColorPalettes::getColorR(sf::RenderWindow& window)
 {
 	int R = colors[colorIterator].x;
 
-		if (sf::Mouse::getPosition(window).x > body.getGlobalBounds().left && sf::Mouse::getPosition(window).x < (body.getGlobalBounds().left + body.getGlobalBounds().width) && sf::Mouse::getPosition(window).y > body.getGlobalBounds().top && sf::Mouse::getPosition(window).y < (body.getGlobalBounds().top + body.getGlobalBounds().height))
-		{
-			if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
-			{
-				return R;
-			}
-		}
+	return R;
 }
 
 int ColorPalettes::getColorG(sf::RenderWindow& window)
 {
 	int G = colors[colorIterator].y;
 
-		if (sf::Mouse::getPosition(window).x > body.getGlobalBounds().left && sf::Mouse::getPosition(window).x < (body.getGlobalBounds().left + body.getGlobalBounds().width) && sf::Mouse::getPosition(window).y > body.getGlobalBounds().top && sf::Mouse::getPosition(window).y < (body.getGlobalBounds().top + body.getGlobalBounds().height))
-		{
-			if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
-			{
-				return G;
-			}
-		}
+	return G;
 }
 
 int ColorPalettes::getColorB(sf::RenderWindow& window)
 {
 	int B = colors[colorIterator].z;
 
-		if (sf::Mouse::getPosition(window).x > body.getGlobalBounds().left && sf::Mouse::getPosition(window).x < (body.getGlobalBounds().left + body.getGlobalBounds().width) && sf::Mouse::getPosition(window).y > body.getGlobalBounds().top && sf::Mouse::getPosition(window).y < (body.getGlobalBounds().top + body.getGlobalBounds().height))
-		{
-			if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
-			{
-				return B;
-			}
-		}
+	return B;
+
 }

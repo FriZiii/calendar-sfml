@@ -16,6 +16,7 @@
 
 #include <vector>
 #include <time.h>
+#include <fstream>
 
 #pragma warning(disable : 4996)
 
@@ -35,9 +36,19 @@ int main()
 
     bool isClicked = false;
 
-    int R = 93;
-    int G = 9;
-    int B = 172;
+    std::fstream file;
+    file.open("Startup/settings.txt", std::ios::in);
+    int R{};
+    int G{};
+    int B{};
+
+    if (file.good() == true)
+    {
+        file >> R;
+        file >> G;
+        file >> B;
+    }
+    file.close();
     sf::Color maincolor(R, G, B); //Purple
 
     //Font
@@ -139,10 +150,26 @@ int main()
         while (window.pollEvent(event))
         {
             if (event.type == sf::Event::Closed)
+            {
+                std::ofstream ofs;
+                ofs.open("Startup/settings.txt", std::ofstream::out | std::ofstream::trunc);
+                ofs.close();
+
+                file.open("Startup/settings.txt", std::ios::out);
+
+                if (file.good() == true)
+                {
+                    file << R << ' ' << G << ' ' << B << ' ';
+                }
                 window.close();
+            }
             else if (event.type == event.MouseButtonReleased && event.mouseButton.button == sf::Mouse::Left)
             {
                 isClicked = true;
+            }
+            else
+            {
+                isClicked = false;
             }
         }
 
@@ -170,6 +197,15 @@ int main()
         }
         else if (button[3].IsClicked(window))
         {
+            std::ofstream ofs;
+            ofs.open("Startup/settings.txt", std::ofstream::out | std::ofstream::trunc);
+            ofs.close();
+
+            file.open("Startup/settings.txt", std::ios::out);
+            if (file.good() == true)
+            {
+                file << R << ' ' << G << ' ' << B << ' ';
+            }
             window.close();
         }
 
@@ -206,43 +242,44 @@ int main()
         }
         if (!home && !credits && settings)
         {
+            if (scrollR.GetIterator() == 255 && scrollG.GetIterator() == 255 && scrollB.GetIterator() == 255)
+            {
+                std::cout << "Nie polecamy takiego koloru" << std::endl;
+            }
+
             for (ColorPalettes & colorpalettes : colorpalettes)
             {
                 colorpalettes.Update(window);
-            }
-                if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
+
+                if (isClicked && colorpalettes.isHover(window))
                 {
-                    for (ColorPalettes& colorpalettes : colorpalettes)
-                    {
-                        R = colorpalettes.getColorR(window);
-                        G = colorpalettes.getColorG(window);
-                        B = colorpalettes.getColorB(window);
-
-                        maincolor = sf::Color(R, G, B);
-
-                    }
+                    R = colorpalettes.getColorR(window);
+                    G = colorpalettes.getColorG(window);
+                    B = colorpalettes.getColorB(window);
                 }
+            }
 
             scrollR.Update(window, "R");
             scrollG.Update(window, "G");
             scrollB.Update(window, "B");
 
-           if (buttoncolor.isHover(window) && sf::Mouse::isButtonPressed(sf::Mouse::Left))
+           if (buttoncolor.isHover(window) && isClicked)
            {
                R = scrollR.GetIterator();
                G = scrollG.GetIterator();
                B = scrollB.GetIterator();
-               maincolor = sf::Color(R, G, B);
            }
 
-            sf::Color ownColor = sf::Color(scrollR.GetIterator(), scrollG.GetIterator(), scrollB.GetIterator());
-            buttoncolor.Update(window, ownColor);
+           maincolor = sf::Color(R, G, B);
+           sf::Color ownColor = sf::Color(scrollR.GetIterator(), scrollG.GetIterator(), scrollB.GetIterator());
+           buttoncolor.Update(window, ownColor);
 
-            colorpalettesText.Update(maincolor);
+           colorpalettesText.Update(maincolor);
         }
 
         //Draw
         window.clear(sf::Color::White);
+
         left.Draw(window);
         logo.Draw(window);
 
@@ -283,6 +320,7 @@ int main()
             for (Text& creditstext : creditstext)
                 creditstext.Draw(window);
         }
+
         window.display();
     }
 
