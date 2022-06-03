@@ -94,14 +94,14 @@
     <ClInclude Include="ColorPalettes.h">
       <Filter>Settings</Filter>
     </ClInclude>
-    <ClInclude Include="Text.h">
-      <Filter>Middle</Filter>
-    </ClInclude>
     <ClInclude Include="ScrollButton.h">
       <Filter>Settings</Filter>
     </ClInclude>
     <ClInclude Include="CreateYourOwnColorButton.h">
       <Filter>Settings</Filter>
+    </ClInclude>
+    <ClInclude Include="Text.h">
+      <Filter>Main</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

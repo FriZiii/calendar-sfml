@@ -139,7 +139,7 @@ int main()
 
     //Credits
     Logo antarmy(sf::Vector2f(1080.0f, 5.0f), sf::Vector2f(1162/10,1276/10), "Assets/AntArmy.png");
-
+    Logo credits_bg(sf::Vector2f(745.0f, 10.0f), sf::Vector2f(927, 501), "Assets/Credits.png");
     std::vector<Text> creditstext;
     creditstext.push_back(Text("ANT ARMY STUDIOS", sf::Vector2f(455, 50), font, 32));
 
@@ -212,12 +212,12 @@ int main()
         if (home && !credits && !settings)
         {
             right.Update(maincolor);
+            monthAndYear.HoverEffect(window, maincolor);
             if (isClicked)
             {
                 monthAndYear.Update(window,maincolor);
                 isClicked = false;
             }
-            monthAndYear.HoverEffect(window, maincolor);
 
 
             int daysCount = 0;
@@ -316,9 +316,10 @@ int main()
         }
         if (!home && credits && !settings)
         {
-            antarmy.Draw(window);
-            for (Text& creditstext : creditstext)
-                creditstext.Draw(window);
+            credits_bg.Draw(window);
+            //antarmy.Draw(window);
+            //for (Text& creditstext : creditstext)
+            //    creditstext.Draw(window);
         }
 
         window.display();

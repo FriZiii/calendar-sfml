@@ -85,6 +85,7 @@ void MonthAndYear::Update(sf::RenderWindow& window, sf::Color maincolor)
 	}
 }
 
+
 void MonthAndYear::HoverEffect(sf::RenderWindow& window, sf::Color maincolor)
 {
 	//Left
