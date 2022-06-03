@@ -20,5 +20,6 @@ public:
 	void Update(sf::RenderWindow& window, int day, int weekDay, sf::Color maincolor, int R, int G, int B);
 	bool isClick(sf::RenderWindow& window);
 	unsigned int GetDay(sf::RenderWindow& window);
+	bool IsBoxCheck() { return isClicked; }
 };
 

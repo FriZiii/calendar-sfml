@@ -62,6 +62,9 @@
     <ClCompile Include="CreateYourOwnColorButton.cpp">
       <Filter>Settings</Filter>
     </ClCompile>
+    <ClCompile Include="TextInputDrawing.cpp">
+      <Filter>Middle</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Background.h">
@@ -102,6 +105,9 @@
     </ClInclude>
     <ClInclude Include="Text.h">
       <Filter>Main</Filter>
+    </ClInclude>
+    <ClInclude Include="TextInputDrawing.h">
+      <Filter>Middle</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

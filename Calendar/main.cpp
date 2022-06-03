@@ -13,6 +13,7 @@
 #include "Text.h"
 #include "ScrollButton.h"
 #include "CreateYourOwnColorButton.h"
+#include "TextInputDrawing.h"
 
 #include <vector>
 #include <time.h>
@@ -34,7 +35,12 @@ int main()
     bool credits = false;
     bool settings = false;
 
+    bool showEvents = false;
+    bool addEventTo = false;
+    int marks = 0;
     bool isClicked = false;
+
+    std::string inputText{};
 
     std::fstream file;
     file.open("Startup/settings.txt", std::ios::in);
@@ -60,16 +66,19 @@ int main()
     //Left and Right bar
     SidePanel left(sf::Vector2f(266.0f, 610.0f), sf::Vector2f(0.0f, 0.0f), maincolor);
     SidePanel right(sf::Vector2f(286.0f, 87.0f), sf::Vector2f(914.0f, 0.0f), maincolor);
+    SidePanel eventBackground(sf::Vector2f(286.0f, 367.0f), sf::Vector2f(914.0f, 130.0f), sf::Color(232, 232, 232));
 
     //Logo
     Logo logo(sf::Vector2f(133.0f, 45.0f), sf::Vector2f(105,105), "Assets/Logo.png");
 
     //Buttons left bar
     std::vector<Button>button;
-    button.push_back(Button(sf::Vector2f(20.0f, 190.0f), font, "HOME"));
-    button.push_back(Button(sf::Vector2f(20.0f, 290.0f), font, "SETTINGS"));
-    button.push_back(Button(sf::Vector2f(20.0f, 390.0f), font, "CREDITS"));
-    button.push_back(Button(sf::Vector2f(20.0f, 490.0f), font, "EXIT"));
+    button.push_back(Button(sf::Vector2f(20.0f, 190.0f), font, "HOME", false, maincolor));
+    button.push_back(Button(sf::Vector2f(20.0f, 290.0f), font, "SETTINGS",false, maincolor));
+    button.push_back(Button(sf::Vector2f(20.0f, 390.0f), font, "CREDITS", false, maincolor));
+    button.push_back(Button(sf::Vector2f(20.0f, 490.0f), font, "EXIT", false, maincolor));
+
+    Button addEvent(sf::Vector2f(945.0f, 500.0f), font, "Add Event", true, maincolor);
 
     //Month and Year
         //Getting actual month and year
@@ -138,11 +147,9 @@ int main()
         CreateYourOwnColorButton buttoncolor(sf::Vector2f(1000, 380));
 
     //Credits
-    Logo antarmy(sf::Vector2f(1080.0f, 5.0f), sf::Vector2f(1162/10,1276/10), "Assets/AntArmy.png");
-    Logo credits_bg(sf::Vector2f(745.0f, 10.0f), sf::Vector2f(927, 501), "Assets/Credits.png");
-    std::vector<Text> creditstext;
-    creditstext.push_back(Text("ANT ARMY STUDIOS", sf::Vector2f(455, 50), font, 32));
-
+        Logo credits_bg(sf::Vector2f(745.0f, 10.0f), sf::Vector2f(927, 501), "Assets/Credits.png");
+    //Event 
+        TextInputDrawing textinputDrawing(font, inputText);
     //Main loop
     while (window.isOpen())
     {
@@ -171,31 +178,60 @@ int main()
             {
                 isClicked = false;
             }
+
+            //Text input
+            if (addEventTo)
+            {
+                if (event.type == sf::Event::TextEntered)
+                {
+                    if (std::isprint(event.text.unicode))
+                    {
+                        inputText += event.text.unicode;
+                        marks++;
+                    }
+                }
+                else if (event.type == sf::Event::KeyPressed)
+                {
+                    if (event.key.code == sf::Keyboard::BackSpace)
+                    {
+                        if (!inputText.empty())
+                        {
+                            inputText.pop_back();
+                        }
+                    }
+                    if (event.key.code == sf::Keyboard::Enter)
+                    {
+                        inputText += '\n';
+                        marks = 0;
+                    }
+                }
+            }
         }
 
         //Updates
         for (Button& button : button)
             button.Update(window, maincolor);
         left.Update(maincolor);
-        if (button[0].IsClicked(window))
+
+        if (button[0].IsHover(window) && isClicked)
         {
             home = true;
             settings = false;
             credits = false;
         }
-        else if (button[1].IsClicked(window))
+        else if (button[1].IsHover(window) && isClicked)
         {
             home = false;
             settings = true;
             credits = false;
         }
-        else if (button[2].IsClicked(window))
+        else if (button[2].IsHover(window) && isClicked)
         {
             home = false;
             settings = false;
             credits = true;
         }
-        else if (button[3].IsClicked(window))
+        else if (button[3].IsHover(window) && isClicked)
         {
             std::ofstream ofs;
             ofs.open("Startup/settings.txt", std::ofstream::out | std::ofstream::trunc);
@@ -207,6 +243,10 @@ int main()
                 file << R << ' ' << G << ' ' << B << ' ';
             }
             window.close();
+        }
+        else if(addEvent.IsHover(window) && isClicked)
+        {
+            addEventTo = true;
         }
 
         if (home && !credits && !settings)
@@ -235,10 +275,42 @@ int main()
                 weekDay--;
 
                 if (daysboxes.isClick(window))
+                {
                     day = daysboxes.GetDay(window);
+                }
+            }
+
+            for (DaysBoxes& daysboxes : daysboxes)
+            {
+                if (daysboxes.IsBoxCheck())
+                {
+                    showEvents = true;
+                    break;
+                }
+                else
+                {
+                    showEvents = false;
+                }
             }
 
             rightbartext.Update(day, monthAndYear.GetMonthString(), right.GetSize(), right.GetPosition());
+
+            addEvent.Update(window, maincolor);
+
+            textinputDrawing.Update(inputText);
+
+            if (showEvents || addEventTo)
+            {
+                if (marks >= 19)
+                {
+                    inputText += '\n';
+                    marks = 0;
+                }
+                if (inputText == "")
+                {
+                    marks = 0;
+                }
+            }
         }
         if (!home && !credits && settings)
         {
@@ -301,6 +373,14 @@ int main()
             monthAndYear.Draw(window);
 
             rightbartext.Draw(window);
+
+            if (showEvents || addEventTo)
+            {
+                eventBackground.Draw(window);
+                textinputDrawing.Draw(window);
+            }
+
+            addEvent.Draw(window);
         }
         if (!home && !credits && settings)
         {
@@ -317,9 +397,6 @@ int main()
         if (!home && credits && !settings)
         {
             credits_bg.Draw(window);
-            //antarmy.Draw(window);
-            //for (Text& creditstext : creditstext)
-            //    creditstext.Draw(window);
         }
 
         window.display();
