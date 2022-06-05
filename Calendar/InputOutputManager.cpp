@@ -36,7 +36,7 @@ void InputOutputManager::DrawTextFromFile(int year, int month, int day, sf:: Fon
 
     sf::Text text;
     text.setFont(font);
-    text.setCharacterSize(20);
+    text.setCharacterSize(24);
     text.setPosition(sf::Vector2f(919.0f, 140.0f));
     text.setFillColor(maincolor);
 
@@ -75,16 +75,10 @@ void InputOutputManager::SaveEventToFile(int year, int month, int day, std::stri
 
     std::ofstream file_save;
     file_save.open(fileName);
-    std::cout << fileName << std::endl;
     this->input = input;
     if (file_save.is_open())
     {
-        std::cout << "X" << std::endl;
         file_save << input;
-    }
-    else
-    {
-        std::cout << "blad" << std::endl;
     }
     file_save.close();
 

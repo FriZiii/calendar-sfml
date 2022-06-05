@@ -21,8 +21,7 @@
 #include <fstream>
 
 #pragma warning(disable : 4996)
-
-int main()
+int WinMain()
 {
     //Antialiasing
     sf::ContextSettings contextsettings;
@@ -30,6 +29,11 @@ int main()
 
     //Window
     sf::RenderWindow window(sf::VideoMode(1200, 610), "Calendar", 4U, contextsettings);
+
+    //Icon of window
+    sf::Image windowIcon;
+    windowIcon.loadFromFile("Assets/Icon/Icon_256x256.png");
+    window.setIcon(256, 256, windowIcon.getPixelsPtr());
 
     //Startup value
     bool home = true;

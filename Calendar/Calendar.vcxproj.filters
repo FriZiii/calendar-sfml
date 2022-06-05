@@ -18,6 +18,9 @@
     <Filter Include="Settings">
       <UniqueIdentifier>{450eeaa0-f6a6-4b7d-a86d-7d5f3e9a186d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Resource">
+      <UniqueIdentifier>{9219bce0-5a89-4b71-b5c3-8814e34266d0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DaysOfTheWeek.cpp">
@@ -115,5 +118,21 @@
     <ClInclude Include="TextInputDrawing.h">
       <Filter>RightBar</Filter>
     </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Middle</Filter>
+    </ClInclude>
+    <ClInclude Include="resource1.h">
+      <Filter>Middle</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Assets\Icon\Icon_256x256.ico">
+      <Filter>Resource</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Calendar.rc">
+      <Filter>Resource</Filter>
+    </ResourceCompile>
   </ItemGroup>
 </Project>
