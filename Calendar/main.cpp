@@ -14,6 +14,7 @@
 #include "ScrollButton.h"
 #include "CreateYourOwnColorButton.h"
 #include "TextInputDrawing.h"
+#include "InputOutputManager.h"
 
 #include <vector>
 #include <time.h>
@@ -35,8 +36,9 @@ int main()
     bool credits = false;
     bool settings = false;
 
-    bool showEvents = false;
-    bool addEventTo = false;
+    bool show_Event = false;
+    bool subbmit_Event = false;
+
     int marks = 0;
     bool isClicked = false;
 
@@ -78,7 +80,8 @@ int main()
     button.push_back(Button(sf::Vector2f(20.0f, 390.0f), font, "CREDITS", false, maincolor));
     button.push_back(Button(sf::Vector2f(20.0f, 490.0f), font, "EXIT", false, maincolor));
 
-    Button addEvent(sf::Vector2f(945.0f, 500.0f), font, "Add Event", true, maincolor);
+    Button addevent(sf::Vector2f(945.0f, 500.0f), font, "ADD EVENT", true, maincolor);
+    Button submit(sf::Vector2f(945.0f, 500.0f), font, "SUBMIT", true, maincolor);
 
     //Month and Year
         //Getting actual month and year
@@ -180,7 +183,7 @@ int main()
             }
 
             //Text input
-            if (addEventTo)
+            if (subbmit_Event)
             {
                 if (event.type == sf::Event::TextEntered)
                 {
@@ -244,9 +247,18 @@ int main()
             }
             window.close();
         }
-        else if(addEvent.IsHover(window) && isClicked)
+
+        // After clicking stop showing the add event button and stat showing submit button
+        if (addevent.IsHover(window) && isClicked && !subbmit_Event)
         {
-            addEventTo = true;
+            subbmit_Event = true;
+        }
+        //After clicking save the text to file, delete the text and stop showing the submit button
+        if (submit.IsHover(window) && isClicked && subbmit_Event)
+        {
+            std::cout << "xd" << std::endl;
+            subbmit_Event = false;
+            inputText = "";
         }
 
         if (home && !credits && !settings)
@@ -280,27 +292,27 @@ int main()
                 }
             }
 
-            for (DaysBoxes& daysboxes : daysboxes)
+            InputOutputManager input_output_manager;
+            if (input_output_manager.foundFile(monthAndYear.GetYear(), monthAndYear.GetMonth(), day))
             {
-                if (daysboxes.IsBoxCheck())
-                {
-                    showEvents = true;
-                    break;
-                }
-                else
-                {
-                    showEvents = false;
-                }
+                show_Event = true;
+            }
+            else
+            {
+                show_Event = false;
             }
 
             rightbartext.Update(day, monthAndYear.GetMonthString(), right.GetSize(), right.GetPosition());
 
-            addEvent.Update(window, maincolor);
-
-            textinputDrawing.Update(inputText);
-
-            if (showEvents || addEventTo)
+            if (!show_Event && !subbmit_Event)
             {
+                addevent.Update(window, maincolor);
+            }
+
+            if (subbmit_Event)
+            {
+                submit.Update(window, maincolor);
+                textinputDrawing.Update(inputText);
                 if (marks >= 19)
                 {
                     inputText += '\n';
@@ -311,6 +323,11 @@ int main()
                     marks = 0;
                 }
             }
+
+            //std::cout << "ShowEvent: " << show_Event << std::endl;
+            //std::cout << "AddEvent: " << !show_Event << std::endl;
+            //std::cout << "Submit: " << subbmit_Event << std::endl;
+
         }
         if (!home && !credits && settings)
         {
@@ -374,13 +391,24 @@ int main()
 
             rightbartext.Draw(window);
 
-            if (showEvents || addEventTo)
+            //Show the event that you found in the file
+            if (show_Event)
             {
                 eventBackground.Draw(window);
+            }
+            // If you have not found the event file, show the option of adding an event
+            else if (!show_Event && !subbmit_Event)
+            {
+                addevent.Draw(window);
+            }
+            //If you have entered an event, save it to a file
+            else if (subbmit_Event)
+            {
+                eventBackground.Draw(window);
+                submit.Draw(window);
                 textinputDrawing.Draw(window);
             }
 
-            addEvent.Draw(window);
         }
         if (!home && !credits && settings)
         {

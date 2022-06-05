@@ -65,6 +65,9 @@
     <ClCompile Include="TextInputDrawing.cpp">
       <Filter>Middle</Filter>
     </ClCompile>
+    <ClCompile Include="InputOutputManager.cpp">
+      <Filter>RightBar</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Background.h">
@@ -108,6 +111,9 @@
     </ClInclude>
     <ClInclude Include="TextInputDrawing.h">
       <Filter>Middle</Filter>
+    </ClInclude>
+    <ClInclude Include="InputOutputManager.h">
+      <Filter>RightBar</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
