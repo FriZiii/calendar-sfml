@@ -154,6 +154,7 @@ int main()
         Button submit(sf::Vector2f(945.0f, 500.0f), font, "SUBMIT", true, maincolor);
         SidePanel eventBackground(sf::Vector2f(286.0f, 367.0f), sf::Vector2f(914.0f, 130.0f), sf::Color(232, 232, 232));
         InputOutputManager output_manager;
+        InputOutputManager input_manager;
     //Main loop
     while (window.isOpen())
     {
@@ -258,8 +259,11 @@ int main()
         //After clicking save the text to file, delete the text and stop showing the submit button
         else if (submit.IsHover(window) && isClicked && subbmit_Event)
         {
-            subbmit_Event = false;
+            if(inputText !="")
+                input_manager.SaveEventToFile(monthAndYear.GetYear(), monthAndYear.GetMonth(), day, inputText);
+
             inputText = "";
+            subbmit_Event = false;
         }
 
         if (home && !credits && !settings)

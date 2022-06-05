@@ -60,3 +60,32 @@ void InputOutputManager::DrawTextFromFile(int year, int month, int day, sf:: Fon
     output = "";
 
 }
+
+void InputOutputManager::SaveEventToFile(int year, int month, int day, std::string &input)
+{
+    this->year = year;
+    this->month = month;
+    this->day = day;
+
+    std::string year_string = std::to_string(year);
+    std::string month_string = std::to_string(month);
+    std::string day_string = std::to_string(day);
+
+    std::string fileName = year_string + month_string + day_string + ".txt";
+
+    std::ofstream file_save;
+    file_save.open(fileName);
+    std::cout << fileName << std::endl;
+    this->input = input;
+    if (file_save.is_open())
+    {
+        std::cout << "X" << std::endl;
+        file_save << input;
+    }
+    else
+    {
+        std::cout << "blad" << std::endl;
+    }
+    file_save.close();
+
+}
