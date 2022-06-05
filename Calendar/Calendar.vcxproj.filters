@@ -62,10 +62,10 @@
     <ClCompile Include="CreateYourOwnColorButton.cpp">
       <Filter>Settings</Filter>
     </ClCompile>
-    <ClCompile Include="TextInputDrawing.cpp">
-      <Filter>Middle</Filter>
-    </ClCompile>
     <ClCompile Include="InputOutputManager.cpp">
+      <Filter>RightBar</Filter>
+    </ClCompile>
+    <ClCompile Include="TextInputDrawing.cpp">
       <Filter>RightBar</Filter>
     </ClCompile>
   </ItemGroup>
@@ -109,10 +109,10 @@
     <ClInclude Include="Text.h">
       <Filter>Main</Filter>
     </ClInclude>
-    <ClInclude Include="TextInputDrawing.h">
-      <Filter>Middle</Filter>
-    </ClInclude>
     <ClInclude Include="InputOutputManager.h">
+      <Filter>RightBar</Filter>
+    </ClInclude>
+    <ClInclude Include="TextInputDrawing.h">
       <Filter>RightBar</Filter>
     </ClInclude>
   </ItemGroup>

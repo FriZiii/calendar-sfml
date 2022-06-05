@@ -61,14 +61,13 @@ int main()
 
     //Font
     sf::Font font; font.loadFromFile("Fonts/WILD_WORLD.otf");
-
+    sf::Font arial; arial.loadFromFile("C:/Windows/Fonts/Arial.ttf");
     //Background
     Background background;
 
     //Left and Right bar
     SidePanel left(sf::Vector2f(266.0f, 610.0f), sf::Vector2f(0.0f, 0.0f), maincolor);
     SidePanel right(sf::Vector2f(286.0f, 87.0f), sf::Vector2f(914.0f, 0.0f), maincolor);
-    SidePanel eventBackground(sf::Vector2f(286.0f, 367.0f), sf::Vector2f(914.0f, 130.0f), sf::Color(232, 232, 232));
 
     //Logo
     Logo logo(sf::Vector2f(133.0f, 45.0f), sf::Vector2f(105,105), "Assets/Logo.png");
@@ -79,9 +78,6 @@ int main()
     button.push_back(Button(sf::Vector2f(20.0f, 290.0f), font, "SETTINGS",false, maincolor));
     button.push_back(Button(sf::Vector2f(20.0f, 390.0f), font, "CREDITS", false, maincolor));
     button.push_back(Button(sf::Vector2f(20.0f, 490.0f), font, "EXIT", false, maincolor));
-
-    Button addevent(sf::Vector2f(945.0f, 500.0f), font, "ADD EVENT", true, maincolor);
-    Button submit(sf::Vector2f(945.0f, 500.0f), font, "SUBMIT", true, maincolor);
 
     //Month and Year
         //Getting actual month and year
@@ -152,7 +148,12 @@ int main()
     //Credits
         Logo credits_bg(sf::Vector2f(745.0f, 10.0f), sf::Vector2f(927, 501), "Assets/Credits.png");
     //Event 
-        TextInputDrawing textinputDrawing(font, inputText);
+        TextInputDrawing textinputDrawing(arial, inputText);
+
+        Button addevent(sf::Vector2f(945.0f, 500.0f), font, "ADD EVENT", true, maincolor);
+        Button submit(sf::Vector2f(945.0f, 500.0f), font, "SUBMIT", true, maincolor);
+        SidePanel eventBackground(sf::Vector2f(286.0f, 367.0f), sf::Vector2f(914.0f, 130.0f), sf::Color(232, 232, 232));
+        InputOutputManager output_manager;
     //Main loop
     while (window.isOpen())
     {
@@ -200,6 +201,7 @@ int main()
                         if (!inputText.empty())
                         {
                             inputText.pop_back();
+                            marks--;
                         }
                     }
                     if (event.key.code == sf::Keyboard::Enter)
@@ -254,9 +256,8 @@ int main()
             subbmit_Event = true;
         }
         //After clicking save the text to file, delete the text and stop showing the submit button
-        if (submit.IsHover(window) && isClicked && subbmit_Event)
+        else if (submit.IsHover(window) && isClicked && subbmit_Event)
         {
-            std::cout << "xd" << std::endl;
             subbmit_Event = false;
             inputText = "";
         }
@@ -313,7 +314,7 @@ int main()
             {
                 submit.Update(window, maincolor);
                 textinputDrawing.Update(inputText);
-                if (marks >= 19)
+                if (marks >= 20)
                 {
                     inputText += '\n';
                     marks = 0;
@@ -323,11 +324,6 @@ int main()
                     marks = 0;
                 }
             }
-
-            //std::cout << "ShowEvent: " << show_Event << std::endl;
-            //std::cout << "AddEvent: " << !show_Event << std::endl;
-            //std::cout << "Submit: " << subbmit_Event << std::endl;
-
         }
         if (!home && !credits && settings)
         {
@@ -395,6 +391,7 @@ int main()
             if (show_Event)
             {
                 eventBackground.Draw(window);
+                output_manager.DrawTextFromFile(monthAndYear.GetYear(), monthAndYear.GetMonth(), day, arial, window, maincolor);
             }
             // If you have not found the event file, show the option of adding an event
             else if (!show_Event && !subbmit_Event)
