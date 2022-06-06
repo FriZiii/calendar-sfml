@@ -21,7 +21,7 @@
 #include <fstream>
 
 #pragma warning(disable : 4996)
-int WinMain()
+int main()
 {
     //Antialiasing
     sf::ContextSettings contextsettings;
@@ -44,6 +44,7 @@ int WinMain()
     bool subbmit_Event = false;
 
     int marks = 0;
+    int max_marks = 0;
     bool isClicked = false;
 
     std::string inputText{};
@@ -65,7 +66,7 @@ int WinMain()
 
     //Font
     sf::Font font; font.loadFromFile("Fonts/WILD_WORLD.otf");
-    sf::Font arial; arial.loadFromFile("C:/Windows/Fonts/Arial.ttf");
+    sf::Font arial; arial.loadFromFile("Fonts/RobotoMono-Regular.ttf");
     //Background
     Background background;
 
@@ -90,6 +91,7 @@ int WinMain()
         int actualmonth = aTime->tm_mon + 1;
         int actualyear = aTime->tm_year + 1900;
         int actualday = aTime->tm_yday;
+
     MonthAndYear monthAndYear(actualmonth, actualyear, font, maincolor);
 
     //Days of the week
@@ -130,24 +132,24 @@ int WinMain()
     RightBarText rightbartext(font);
 
     //Settings 
-        //ColorPallets
-        Text colorpalettesText("PICK YOUR ", sf::Vector2f(455.0f, 75.0f), font, "COLOR", maincolor, 40);
-        Text scrollbuttonText("or create your own", sf::Vector2f(470.0f, 230.0f), font, 40);
+    //ColorPallets
+    Text colorpalettesText("PICK YOUR ", sf::Vector2f(455.0f, 75.0f), font, "COLOR", maincolor, 40);
+    Text scrollbuttonText("or create your own", sf::Vector2f(470.0f, 230.0f), font, 40);
 
-        std::vector<ColorPalettes> colorpalettes;
-        int k = 0;
-        for (int i = 0; i < 10; i++)
-        {
-            sf::Vector2f position(344.0f + 30.0f + ( (float)i * 80.0f), 175.0f);
-            colorpalettes.push_back(ColorPalettes(position, k));
-            k++;
-        }
-        //ScrollButtons
-        ScrollButton scrollR(sf::Vector2f(344.0f, 320));
-        ScrollButton scrollG(sf::Vector2f(344.0f, 370));
-        ScrollButton scrollB(sf::Vector2f(344.0f, 420));
+    std::vector<ColorPalettes> colorpalettes;
+    int k = 0;
+    for (int i = 0; i < 10; i++)
+    {
+        sf::Vector2f position(344.0f + 30.0f + ((float)i * 80.0f), 175.0f);
+        colorpalettes.push_back(ColorPalettes(position, k));
+        k++;
+    }
+    //ScrollButtons
+    ScrollButton scrollR(sf::Vector2f(344.0f, 320));
+    ScrollButton scrollG(sf::Vector2f(344.0f, 370));
+    ScrollButton scrollB(sf::Vector2f(344.0f, 420));
 
-        CreateYourOwnColorButton buttoncolor(sf::Vector2f(1000, 380));
+    CreateYourOwnColorButton buttoncolor(sf::Vector2f(1000, 380));
 
     //Credits
         Logo credits_bg(sf::Vector2f(745.0f, 10.0f), sf::Vector2f(927, 501), "Assets/Credits.png");
@@ -156,6 +158,7 @@ int WinMain()
 
         Button addevent(sf::Vector2f(945.0f, 500.0f), font, "ADD EVENT", true, maincolor);
         Button submit(sf::Vector2f(945.0f, 500.0f), font, "SUBMIT", true, maincolor);
+
         SidePanel eventBackground(sf::Vector2f(286.0f, 367.0f), sf::Vector2f(914.0f, 130.0f), sf::Color(232, 232, 232));
         InputOutputManager output_manager;
         InputOutputManager input_manager;
@@ -187,9 +190,9 @@ int WinMain()
             {
                 isClicked = false;
             }
-
+            
             //Text input
-            if (subbmit_Event)
+            if (subbmit_Event && max_marks <= 208)
             {
                 if (event.type == sf::Event::TextEntered)
                 {
@@ -197,6 +200,7 @@ int WinMain()
                     {
                         inputText += event.text.unicode;
                         marks++;
+                        max_marks++;
                     }
                 }
                 else if (event.type == sf::Event::KeyPressed)
@@ -207,6 +211,7 @@ int WinMain()
                         {
                             inputText.pop_back();
                             marks--;
+                            max_marks--;
                         }
                     }
                     if (event.key.code == sf::Keyboard::Enter)
@@ -221,6 +226,7 @@ int WinMain()
         //Updates
         for (Button& button : button)
             button.Update(window, maincolor);
+
         left.Update(maincolor);
 
         if (button[0].IsHover(window) && isClicked)
@@ -280,7 +286,6 @@ int WinMain()
                 isClicked = false;
             }
 
-
             int daysCount = 0;
             int weekDay = zellerArgorithm(monthAndYear.GetMonth(), monthAndYear.GetYear());//How many days we have to skip
             for (DaysBoxes& daysboxes : daysboxes)
@@ -322,7 +327,7 @@ int WinMain()
             {
                 submit.Update(window, maincolor);
                 textinputDrawing.Update(inputText);
-                if (marks >= 20)
+                if (marks >= 19)
                 {
                     inputText += '\n';
                     marks = 0;
@@ -366,7 +371,6 @@ int WinMain()
            maincolor = sf::Color(R, G, B);
            sf::Color ownColor = sf::Color(scrollR.GetIterator(), scrollG.GetIterator(), scrollB.GetIterator());
            buttoncolor.Update(window, ownColor);
-
            colorpalettesText.Update(maincolor);
         }
 
@@ -418,8 +422,10 @@ int WinMain()
         if (!home && !credits && settings)
         {
             colorpalettesText.Draw(window);
+
             for (ColorPalettes& colorpalettes : colorpalettes)
                 colorpalettes.Draw(window);
+
             scrollbuttonText.Draw(window);
 
             scrollR.Draw(window);

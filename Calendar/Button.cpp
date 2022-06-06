@@ -35,7 +35,7 @@ Button::Button(sf::Vector2f position, sf::Font &font, std::string textString, bo
 		this->textString = textString;
 
 		text.setFont(font);
-		text.setCharacterSize(18);
+		text.setCharacterSize(16);
 		text.setFillColor(sf::Color::White);
 		text.setString(textString);
 

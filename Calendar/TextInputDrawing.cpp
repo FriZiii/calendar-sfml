@@ -6,7 +6,7 @@ TextInputDrawing::TextInputDrawing(sf::Font font, std::string textString)
 	this->textString = textString;
 	text.setFillColor(sf::Color::Black);
 	text.setString(textString);
-	text.setCharacterSize(20);
+	text.setCharacterSize(24);
 }
 
 void TextInputDrawing::Update(std::string textString)
@@ -14,5 +14,5 @@ void TextInputDrawing::Update(std::string textString)
 	this->textString = textString;
 	text.setFont(font);
 	text.setString(textString);
-	text.setPosition(sf::Vector2f(920.0f, 135.0f));
+	text.setPosition(sf::Vector2f(923.0f, 135.0f));
 }

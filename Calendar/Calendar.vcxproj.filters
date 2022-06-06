@@ -119,10 +119,10 @@
       <Filter>RightBar</Filter>
     </ClInclude>
     <ClInclude Include="resource.h">
-      <Filter>Middle</Filter>
+      <Filter>Resource</Filter>
     </ClInclude>
     <ClInclude Include="resource1.h">
-      <Filter>Middle</Filter>
+      <Filter>Resource</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

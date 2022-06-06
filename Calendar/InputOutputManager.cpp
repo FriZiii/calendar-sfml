@@ -10,7 +10,7 @@ bool InputOutputManager::foundFile(int year, int month, int day)
     std::string month_string = std::to_string(month);
     std::string day_string = std::to_string(day);
 
-    std::string fileName = year_string + month_string + day_string + ".txt";
+    std::string fileName = "Events/" + year_string + month_string + day_string + ".txt";
 
     file.open(fileName, std::ios::in | std::ios::out);
     if (file.is_open())
@@ -32,12 +32,12 @@ void InputOutputManager::DrawTextFromFile(int year, int month, int day, sf:: Fon
     std::string month_string = std::to_string(month);
     std::string day_string = std::to_string(day);
 
-    std::string fileName = year_string + month_string + day_string + ".txt";
+    std::string fileName = "Events/" + year_string + month_string + day_string + ".txt";
 
     sf::Text text;
     text.setFont(font);
     text.setCharacterSize(24);
-    text.setPosition(sf::Vector2f(919.0f, 140.0f));
+    text.setPosition(sf::Vector2f(923.0f, 135.0f));
     text.setFillColor(maincolor);
 
     std::fstream file_load;
@@ -71,7 +71,7 @@ void InputOutputManager::SaveEventToFile(int year, int month, int day, std::stri
     std::string month_string = std::to_string(month);
     std::string day_string = std::to_string(day);
 
-    std::string fileName = year_string + month_string + day_string + ".txt";
+    std::string fileName = "Events/" + year_string + month_string + day_string + ".txt";
 
     std::ofstream file_save;
     file_save.open(fileName);
