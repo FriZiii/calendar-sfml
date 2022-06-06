@@ -19,6 +19,8 @@
 #include <vector>
 #include <time.h>
 #include <fstream>
+#include <filesystem>
+#include <string>
 
 #pragma warning(disable : 4996)
 int main()
@@ -66,7 +68,7 @@ int main()
 
     //Font
     sf::Font font; font.loadFromFile("Fonts/WILD_WORLD.otf");
-    sf::Font arial; arial.loadFromFile("Fonts/RobotoMono-Regular.ttf");
+    sf::Font Roboto_Mono; Roboto_Mono.loadFromFile("Fonts/RobotoMono-Regular.ttf");
     //Background
     Background background;
 
@@ -153,15 +155,19 @@ int main()
 
     //Credits
         Logo credits_bg(sf::Vector2f(745.0f, 10.0f), sf::Vector2f(927, 501), "Assets/Credits.png");
+
     //Event 
-        TextInputDrawing textinputDrawing(arial, inputText);
+    TextInputDrawing textinputDrawing(Roboto_Mono, inputText);
 
-        Button addevent(sf::Vector2f(945.0f, 500.0f), font, "ADD EVENT", true, maincolor);
-        Button submit(sf::Vector2f(945.0f, 500.0f), font, "SUBMIT", true, maincolor);
+    Button addevent(sf::Vector2f(945.0f, 500.0f), font, "ADD EVENT", true, maincolor);
+    Button submit(sf::Vector2f(945.0f, 500.0f), font, "SUBMIT", true, maincolor);
+    Button delete_event(sf::Vector2f(945.0f, 500.0f), font, "DELETE", true, maincolor);
 
-        SidePanel eventBackground(sf::Vector2f(286.0f, 367.0f), sf::Vector2f(914.0f, 130.0f), sf::Color(232, 232, 232));
-        InputOutputManager output_manager;
-        InputOutputManager input_manager;
+    SidePanel eventBackground(sf::Vector2f(286.0f, 367.0f), sf::Vector2f(914.0f, 130.0f), sf::Color(232, 232, 232));
+    InputOutputManager output_manager;
+    InputOutputManager input_manager;
+    InputOutputManager remove_manager;
+
     //Main loop
     while (window.isOpen())
     {
@@ -261,12 +267,23 @@ int main()
             window.close();
         }
 
+        // After clicking remove event
+        if (delete_event.IsHover(window) && isClicked && show_Event)
+        {
+            std::string fileNameString = remove_manager.GetFileName(monthAndYear.GetYear(), monthAndYear.GetMonth(), day);
+            int lengthofFileName = fileNameString.length();
+            char *fileName = new char[lengthofFileName+1];
+            //Convert string to char
+            strcpy(fileName, fileNameString.c_str());
+
+            remove(fileName);
+        }
         // After clicking stop showing the add event button and stat showing submit button
-        if (addevent.IsHover(window) && isClicked && !subbmit_Event)
+        else if (addevent.IsHover(window) && isClicked && !subbmit_Event)
         {
             subbmit_Event = true;
         }
-        //After clicking save the text to file, delete the text and stop showing the submit button
+        //After clicking save the text to file, delete_event the text and stop showing the submit button
         else if (submit.IsHover(window) && isClicked && subbmit_Event)
         {
             if(inputText !="")
@@ -337,6 +354,11 @@ int main()
                     marks = 0;
                 }
             }
+
+            if (show_Event)
+            {
+                delete_event.Update(window, maincolor);
+            }
         }
         if (!home && !credits && settings)
         {
@@ -403,7 +425,8 @@ int main()
             if (show_Event)
             {
                 eventBackground.Draw(window);
-                output_manager.DrawTextFromFile(monthAndYear.GetYear(), monthAndYear.GetMonth(), day, arial, window, maincolor);
+                delete_event.Draw(window);
+                output_manager.DrawTextFromFile(monthAndYear.GetYear(), monthAndYear.GetMonth(), day, Roboto_Mono, window, maincolor);
             }
             // If you have not found the event file, show the option of adding an event
             else if (!show_Event && !subbmit_Event)

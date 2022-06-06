@@ -14,5 +14,5 @@ void TextInputDrawing::Update(std::string textString)
 	this->textString = textString;
 	text.setFont(font);
 	text.setString(textString);
-	text.setPosition(sf::Vector2f(923.0f, 135.0f));
+	text.setPosition(sf::Vector2f(922.0f, 135.0f));
 }

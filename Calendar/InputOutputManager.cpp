@@ -37,7 +37,7 @@ void InputOutputManager::DrawTextFromFile(int year, int month, int day, sf:: Fon
     sf::Text text;
     text.setFont(font);
     text.setCharacterSize(24);
-    text.setPosition(sf::Vector2f(923.0f, 135.0f));
+    text.setPosition(sf::Vector2f(922.0f, 135.0f));
     text.setFillColor(maincolor);
 
     std::fstream file_load;
@@ -82,4 +82,15 @@ void InputOutputManager::SaveEventToFile(int year, int month, int day, std::stri
     }
     file_save.close();
 
+}
+
+std::string InputOutputManager::GetFileName(int year, int month, int day)
+{
+    std::string year_string = std::to_string(year);
+    std::string month_string = std::to_string(month);
+    std::string day_string = std::to_string(day);
+
+    this->returningFileName = "Events/" + year_string + month_string + day_string + ".txt";
+
+    return this->returningFileName;
 }
