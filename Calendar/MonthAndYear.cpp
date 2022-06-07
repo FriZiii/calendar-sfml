@@ -113,3 +113,52 @@ std::string MonthAndYear::GetMonthString()
 {
 	return textStringMonth[month];
 }
+
+std::string MonthAndYear::GetMonthString_after()
+{
+	int k = month;
+	k--;
+	if (k == 0)
+	{
+		k = 12;
+	}
+	return  textStringMonth[k];
+}
+
+std::string MonthAndYear::GetMonthString_before()
+{
+	int k = month;
+	k++;
+	if (k == 13)
+	{
+		k = 1;
+	}
+	return textStringMonth[k];
+}
+
+bool MonthAndYear::rightIsHover(sf::RenderWindow& window)
+{
+	//Right
+	if (sf::Mouse::getPosition(window).x > buttonRight.getGlobalBounds().left && sf::Mouse::getPosition(window).x < (buttonRight.getGlobalBounds().left + buttonRight.getGlobalBounds().width) && sf::Mouse::getPosition(window).y > buttonRight.getGlobalBounds().top && sf::Mouse::getPosition(window).y < (buttonRight.getGlobalBounds().top + buttonRight.getGlobalBounds().height))
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+}
+
+bool MonthAndYear::leftIsHover(sf::RenderWindow& window)
+{
+	//Left
+	if (sf::Mouse::getPosition(window).x > buttonLeft.getGlobalBounds().left && sf::Mouse::getPosition(window).x < (buttonLeft.getGlobalBounds().left + buttonLeft.getGlobalBounds().width) && sf::Mouse::getPosition(window).y > buttonLeft.getGlobalBounds().top && sf::Mouse::getPosition(window).y < (buttonLeft.getGlobalBounds().top + buttonLeft.getGlobalBounds().height))
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+
+}

@@ -36,5 +36,9 @@ public:
 	unsigned int GetMonth() { return month; }
 	unsigned int GetYear(){ return year; }
 	std::string GetMonthString();
+	std::string GetMonthString_after();
+	std::string GetMonthString_before();
+	bool rightIsHover(sf::RenderWindow& window);
+	bool leftIsHover(sf::RenderWindow& window);
 };
 

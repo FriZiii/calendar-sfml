@@ -13,7 +13,7 @@ class RightBarText
 	std::string textString;
 public:
 	RightBarText(sf::Font& font);
-	void Update(int day, std::string monthString, sf::Vector2f size, sf::Vector2f position);
+	void Update(int day, std::string monthString, sf::Vector2f size, sf::Vector2f position, std::string monthbefore, std::string monthafter);
 	void Draw(sf::RenderWindow& window);
 };
 

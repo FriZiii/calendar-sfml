@@ -9,7 +9,7 @@ RightBarText::RightBarText(sf::Font& font)
 	text.setCharacterSize(30);
 }
 
-void RightBarText::Update(int day, std::string monthString, sf::Vector2f size, sf::Vector2f position)
+void RightBarText::Update(int day, std::string monthString, sf::Vector2f size, sf::Vector2f position, std::string monthbefore, std::string monthafter)
 {
 	if ((day % 10 == 1 || day % 20 == 1 || day % 30 == 1) && day != 11)
 	{
@@ -29,7 +29,17 @@ void RightBarText::Update(int day, std::string monthString, sf::Vector2f size, s
 		std::transform(monthString.begin(), monthString.end(), monthString.begin(), ::tolower),
 		textString = dayString + "rd of " + monthString;
 	}
-	else if (day == 0 || day >= 50)
+	else if (day == 0)
+	{
+		dayString = "";
+		textString = monthafter;
+	}
+	else if(day >= 50)
+	{
+		dayString = "";
+		textString = monthbefore;
+	}
+	else if(day == -1)
 	{
 		dayString = "";
 		textString = monthString;

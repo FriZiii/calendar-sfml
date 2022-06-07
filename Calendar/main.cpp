@@ -131,7 +131,7 @@ int main()
     }
 
     //Right bar text;
-    int day{};
+    int day = -1;
     RightBarText rightbartext(font);
 
     //Settings 
@@ -334,16 +334,18 @@ int main()
         {
             right.Update(maincolor);
             monthAndYear.HoverEffect(window, maincolor);
-            if (isClicked)
+            if (isClicked && (monthAndYear.leftIsHover(window) || monthAndYear.rightIsHover(window)))
             {
                 monthAndYear.Update(window,maincolor);
+                std::cout << "X" << std::endl;
                 isClicked = false;
+                day = -1;
             }
 
             int daysCount = 0;
             int weekDay = zellerArgorithm(monthAndYear.GetMonth(), monthAndYear.GetYear());//How many days we have to skip
             for (DaysBoxes& daysboxes : daysboxes)
-            {
+            {   
                 if (weekDay <= 0)
                 {
                     if (daysCount < DaysCount(monthAndYear.GetMonth(), monthAndYear.GetYear()))//If the current day is less than the number of days in the month, we increase the next day
@@ -370,7 +372,7 @@ int main()
                 show_Event = false;
             }
 
-            rightbartext.Update(day, monthAndYear.GetMonthString(), right.GetSize(), right.GetPosition());
+            rightbartext.Update(day, monthAndYear.GetMonthString(), right.GetSize(), right.GetPosition(), monthAndYear.GetMonthString_before(), monthAndYear.GetMonthString_after());
 
             if (!show_Event && !subbmit_Event)
             {
