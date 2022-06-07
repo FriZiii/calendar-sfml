@@ -47,6 +47,8 @@ int main()
     int marks = 0;
     int max_marks = 0;
     int marks_in_line[11]{};
+    int line = 0;
+
     bool isClicked = false;
 
     std::string inputText{};
@@ -155,7 +157,7 @@ int main()
     CreateYourOwnColorButton buttoncolor(sf::Vector2f(1000, 380));
 
     //Credits
-        Logo credits_bg(sf::Vector2f(745.0f, 10.0f), sf::Vector2f(927, 501), "Assets/Credits.png");
+    Logo credits_bg(sf::Vector2f(745.0f, 10.0f), sf::Vector2f(927, 501), "Assets/Credits.png");
 
     //Event 
     TextInputDrawing textinputDrawing(Roboto_Mono_Regular, inputText);
@@ -169,7 +171,6 @@ int main()
     InputOutputManager input_manager;
     InputOutputManager remove_manager;
 
-    int line = 0;
     //Main loop
     while (window.isOpen())
     {
@@ -314,9 +315,10 @@ int main()
         else if (addevent.IsHover(window) && isClicked && !subbmit_Event)
         {
             subbmit_Event = true;
+            isClicked = false;
         }
         //After clicking save the text to file, delete_event the text and stop showing the submit button
-        else if (submit.IsHover(window) && isClicked && subbmit_Event)
+        else if (submit.IsHover(window) && isClicked && subbmit_Event && day != -1)
         {
             if(inputText !="")
                 input_manager.SaveEventToFile(monthAndYear.GetYear(), monthAndYear.GetMonth(), day, inputText);
@@ -328,18 +330,19 @@ int main()
                 marks_in_line[i] = 0;
             line = 0;
             subbmit_Event = false;
+            isClicked = false;
         }
 
         if (home && !credits && !settings)
         {
             right.Update(maincolor);
             monthAndYear.HoverEffect(window, maincolor);
+            monthAndYear.ColorUpdate(maincolor);
             if (isClicked && (monthAndYear.leftIsHover(window) || monthAndYear.rightIsHover(window)))
             {
                 monthAndYear.Update(window,maincolor);
-                std::cout << "X" << std::endl;
-                isClicked = false;
                 day = -1;
+                isClicked = false;
             }
 
             int daysCount = 0;
@@ -374,12 +377,12 @@ int main()
 
             rightbartext.Update(day, monthAndYear.GetMonthString(), right.GetSize(), right.GetPosition(), monthAndYear.GetMonthString_before(), monthAndYear.GetMonthString_after());
 
-            if (!show_Event && !subbmit_Event)
+            if (!show_Event && !subbmit_Event && day != -1)
             {
                 addevent.Update(window, maincolor);
             }
 
-            if (subbmit_Event)
+            if (subbmit_Event && day != -1)
             {
                 submit.Update(window, maincolor);
                 textinputDrawing.Update(inputText);
@@ -457,14 +460,15 @@ int main()
                 eventBackground.Draw(window);
                 delete_event.Draw(window);
                 output_manager.DrawTextFromFile(monthAndYear.GetYear(), monthAndYear.GetMonth(), day, Roboto_Mono_Bold, window, maincolor);
+                std::cout << day << std::endl;
             }
             // If you have not found the event file, show the option of adding an event
-            else if (!show_Event && !subbmit_Event)
+            else if (!show_Event && !subbmit_Event && day != -1)
             {
                 addevent.Draw(window);
             }
             //If you have entered an event, save it to a file
-            else if (subbmit_Event)
+            else if (subbmit_Event && day != -1)
             {
                 eventBackground.Draw(window);
                 submit.Draw(window);

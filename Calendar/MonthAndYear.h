@@ -33,8 +33,10 @@ public:
 	void Draw(sf::RenderWindow& window) { window.draw(textMonth); window.draw(textYear); window.draw(buttonLeft); window.draw(buttonRight);}
 	void Update(sf::RenderWindow& window, sf::Color maincolor);
 	void HoverEffect(sf::RenderWindow& window, sf::Color maincolor);
+	void ColorUpdate(sf::Color maincolor){ textMonth.setFillColor(maincolor); }
 	unsigned int GetMonth() { return month; }
 	unsigned int GetYear(){ return year; }
+
 	std::string GetMonthString();
 	std::string GetMonthString_after();
 	std::string GetMonthString_before();
