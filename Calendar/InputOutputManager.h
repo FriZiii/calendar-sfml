@@ -9,11 +9,9 @@ class InputOutputManager
 	std::string output{};
 	std::fstream file{};
 
-	int year;
-	int month;
-	int day;
-
-	std::string returningFileName;
+	int year{};
+	int month{};
+	int day{};
 
 public:
 	bool foundFile(int year, int month, int day);

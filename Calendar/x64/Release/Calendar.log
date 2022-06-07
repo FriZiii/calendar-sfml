@@ -1,6 +1,4 @@
 ﻿  main.cpp
-  The contents of <filesystem> are available only with C++17 or later.
-E:\Calendar\Calendar\Calendar\main.cpp(274,59): warning C4267: "inicjowanie": konwersja z "size_t" do "int", możliwa utrata danych
   Trwa generowanie kodu
   1 of 527 functions ( 0.2%) were compiled, the rest were copied from previous compilation.
     0 functions were new in current compilation

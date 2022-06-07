@@ -19,7 +19,6 @@
 #include <vector>
 #include <time.h>
 #include <fstream>
-#include <filesystem>
 #include <string>
 
 #pragma warning(disable : 4996)
@@ -47,6 +46,7 @@ int main()
 
     int marks = 0;
     int max_marks = 0;
+    int marks_in_line[11]{};
     bool isClicked = false;
 
     std::string inputText{};
@@ -68,7 +68,8 @@ int main()
 
     //Font
     sf::Font font; font.loadFromFile("Fonts/WILD_WORLD.otf");
-    sf::Font Roboto_Mono; Roboto_Mono.loadFromFile("Fonts/RobotoMono-Regular.ttf");
+    sf::Font Roboto_Mono_Regular; Roboto_Mono_Regular.loadFromFile("Fonts/RobotoMono-Light.ttf");
+    sf::Font Roboto_Mono_Bold; Roboto_Mono_Bold.loadFromFile("Fonts/RobotoMono-Bold.ttf");
     //Background
     Background background;
 
@@ -87,12 +88,12 @@ int main()
     button.push_back(Button(sf::Vector2f(20.0f, 490.0f), font, "EXIT", false, maincolor));
 
     //Month and Year
-        //Getting actual month and year
+        //Getting actual month and year an day
         time_t theTime = time(NULL);
-        struct tm* aTime = localtime(&theTime);
-        int actualmonth = aTime->tm_mon + 1;
-        int actualyear = aTime->tm_year + 1900;
-        int actualday = aTime->tm_yday;
+        struct tm tm = *localtime(&theTime);
+        int actualmonth = tm.tm_mon + 1;
+        int actualyear = tm.tm_year + 1900;
+        int actualday = tm.tm_mday;
 
     MonthAndYear monthAndYear(actualmonth, actualyear, font, maincolor);
 
@@ -157,7 +158,7 @@ int main()
         Logo credits_bg(sf::Vector2f(745.0f, 10.0f), sf::Vector2f(927, 501), "Assets/Credits.png");
 
     //Event 
-    TextInputDrawing textinputDrawing(Roboto_Mono, inputText);
+    TextInputDrawing textinputDrawing(Roboto_Mono_Regular, inputText);
 
     Button addevent(sf::Vector2f(945.0f, 500.0f), font, "ADD EVENT", true, maincolor);
     Button submit(sf::Vector2f(945.0f, 500.0f), font, "SUBMIT", true, maincolor);
@@ -168,6 +169,7 @@ int main()
     InputOutputManager input_manager;
     InputOutputManager remove_manager;
 
+    int line = 0;
     //Main loop
     while (window.isOpen())
     {
@@ -198,15 +200,27 @@ int main()
             }
             
             //Text input
-            if (subbmit_Event && max_marks <= 208)
+            if (subbmit_Event)
             {
-                if (event.type == sf::Event::TextEntered)
+                if (inputText == "")
+                {
+                    marks = 0;
+                    max_marks = 0;
+                }
+                if (event.type == sf::Event::TextEntered && max_marks <= 208)
                 {
                     if (std::isprint(event.text.unicode))
                     {
+                        if (marks >= 19)
+                        {
+                            inputText += '\n';
+                            line++;
+                            marks = 0;
+                        }
                         inputText += event.text.unicode;
                         marks++;
                         max_marks++;
+                        marks_in_line[line] = marks;
                     }
                 }
                 else if (event.type == sf::Event::KeyPressed)
@@ -215,14 +229,26 @@ int main()
                     {
                         if (!inputText.empty())
                         {
+                            if (marks == 0)
+                            {
+                                line--;
+                                marks = marks_in_line[line];
+                            }
+                            else
+                            {
+                                marks--;
+                                max_marks--;
+                                marks_in_line[line]--;
+                            }
                             inputText.pop_back();
-                            marks--;
-                            max_marks--;
                         }
                     }
                     if (event.key.code == sf::Keyboard::Enter)
                     {
+                        marks_in_line[line] = marks;
+                        line++;
                         inputText += '\n';
+                        max_marks += (19 - marks);
                         marks = 0;
                     }
                 }
@@ -271,12 +297,18 @@ int main()
         if (delete_event.IsHover(window) && isClicked && show_Event)
         {
             std::string fileNameString = remove_manager.GetFileName(monthAndYear.GetYear(), monthAndYear.GetMonth(), day);
-            int lengthofFileName = fileNameString.length();
+            int lengthofFileName = (int)fileNameString.length();
             char *fileName = new char[lengthofFileName+1];
             //Convert string to char
             strcpy(fileName, fileNameString.c_str());
 
             remove(fileName);
+            inputText = "";
+            max_marks = 0;
+            marks = 0;
+            for(int i = 0; i<11;i++)
+                marks_in_line[i] = 0;
+            line = 0;
         }
         // After clicking stop showing the add event button and stat showing submit button
         else if (addevent.IsHover(window) && isClicked && !subbmit_Event)
@@ -290,6 +322,11 @@ int main()
                 input_manager.SaveEventToFile(monthAndYear.GetYear(), monthAndYear.GetMonth(), day, inputText);
 
             inputText = "";
+            max_marks = 0;
+            marks = 0;
+            for (int i = 0; i < 11; i++)
+                marks_in_line[i] = 0;
+            line = 0;
             subbmit_Event = false;
         }
 
@@ -344,15 +381,6 @@ int main()
             {
                 submit.Update(window, maincolor);
                 textinputDrawing.Update(inputText);
-                if (marks >= 19)
-                {
-                    inputText += '\n';
-                    marks = 0;
-                }
-                if (inputText == "")
-                {
-                    marks = 0;
-                }
             }
 
             if (show_Event)
@@ -426,7 +454,7 @@ int main()
             {
                 eventBackground.Draw(window);
                 delete_event.Draw(window);
-                output_manager.DrawTextFromFile(monthAndYear.GetYear(), monthAndYear.GetMonth(), day, Roboto_Mono, window, maincolor);
+                output_manager.DrawTextFromFile(monthAndYear.GetYear(), monthAndYear.GetMonth(), day, Roboto_Mono_Bold, window, maincolor);
             }
             // If you have not found the event file, show the option of adding an event
             else if (!show_Event && !subbmit_Event)

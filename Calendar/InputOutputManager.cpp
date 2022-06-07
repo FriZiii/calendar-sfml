@@ -90,7 +90,7 @@ std::string InputOutputManager::GetFileName(int year, int month, int day)
     std::string month_string = std::to_string(month);
     std::string day_string = std::to_string(day);
 
-    this->returningFileName = "Events/" + year_string + month_string + day_string + ".txt";
+    std::string fileame = "Events/" + year_string + month_string + day_string + ".txt";
 
-    return this->returningFileName;
+    return fileame;
 }
