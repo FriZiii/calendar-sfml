@@ -66,12 +66,13 @@ int main()
         file >> B;
     }
     file.close();
-    sf::Color maincolor(R, G, B); //Purple
+    sf::Color maincolor(R, G, B);
 
-    //Font
+    //Fonts
     sf::Font font; font.loadFromFile("Fonts/WILD_WORLD.otf");
     sf::Font Roboto_Mono_Regular; Roboto_Mono_Regular.loadFromFile("Fonts/RobotoMono-Light.ttf");
     sf::Font Roboto_Mono_Bold; Roboto_Mono_Bold.loadFromFile("Fonts/RobotoMono-Bold.ttf");
+
     //Background
     Background background;
 
@@ -136,7 +137,6 @@ int main()
     int day = -1;
     RightBarText rightbartext(font);
 
-    //Settings 
     //ColorPallets
     Text colorpalettesText("PICK YOUR ", sf::Vector2f(455.0f, 75.0f), font, "COLOR", maincolor, 40);
     Text scrollbuttonText("or create your own", sf::Vector2f(470.0f, 230.0f), font, 40);
@@ -149,6 +149,7 @@ int main()
         colorpalettes.push_back(ColorPalettes(position, k));
         k++;
     }
+
     //ScrollButtons
     ScrollButton scrollR(sf::Vector2f(344.0f, 320));
     ScrollButton scrollG(sf::Vector2f(344.0f, 370));
@@ -157,7 +158,15 @@ int main()
     CreateYourOwnColorButton buttoncolor(sf::Vector2f(1000, 380));
 
     //Credits
-    Logo credits_bg(sf::Vector2f(745.0f, 10.0f), sf::Vector2f(927, 501), "Assets/Credits.png");
+    Logo antArmy(sf::Vector2f(1070.0f, 40.0f), sf::Vector2f(122, 111), "Assets/Ant_Army.png");
+    std::vector<Text> creditsText;
+    creditsText.push_back(Text("Ant Army Productions", sf::Vector2f(345, 70), font, 43));
+    creditsText.push_back(Text("Project ", "leader ", "Mateusz Sawosz", sf::Vector2f(350, 170), font, maincolor, 33));
+    creditsText.push_back(Text("Project ", "Assistant Madzia Szmatloch", sf::Vector2f(295, 230), font, maincolor, 33));
+    creditsText.push_back(Text("UI/UX ", "Designer Mateusz Sawosz", sf::Vector2f(340, 290), font, maincolor, 33));
+    creditsText.push_back(Text("Programmer ", "Madzia Szmatloch", sf::Vector2f(370, 350), font, maincolor, 33));
+    creditsText.push_back(Text("Programmer ", "Jakub Pietrasik", sf::Vector2f(410, 410), font, maincolor, 33));
+    creditsText.push_back(Text("Software ", "engineer ", "Mateusz Sawosz", sf::Vector2f(310, 470), font, maincolor, 33));
 
     //Event 
     TextInputDrawing textinputDrawing(Roboto_Mono_Regular, inputText);
@@ -428,7 +437,11 @@ int main()
            buttoncolor.Update(window, ownColor);
            colorpalettesText.Update(maincolor);
         }
-
+        if (!home && credits && !settings)
+        {
+            for(Text& creditsText : creditsText)
+                creditsText.Update(maincolor);
+        }
         //Draw
         window.clear(sf::Color::White);
 
@@ -492,7 +505,9 @@ int main()
         }
         if (!home && credits && !settings)
         {
-            credits_bg.Draw(window);
+            antArmy.Draw(window);
+            for (Text& creditsText : creditsText)
+                creditsText.Draw(window);
         }
 
         window.display();

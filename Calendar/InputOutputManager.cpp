@@ -10,7 +10,6 @@ bool InputOutputManager::foundFile(int year, int month, int day)
         std::string day_string = std::to_string(day);
 
         fileName = "Events/" + year_string + month_string + day_string + ".txt";
-        std::cout << fileName << std::endl;
     }
     else if (day == 0)
     {
@@ -24,7 +23,6 @@ bool InputOutputManager::foundFile(int year, int month, int day)
         std::string month_string = std::to_string(month_before);
 
         fileName = "Events/" + year_string + month_string + ".txt";
-        std::cout << fileName << std::endl;
     }
     else if (day == 50)
     {
@@ -38,7 +36,6 @@ bool InputOutputManager::foundFile(int year, int month, int day)
         std::string month_string = std::to_string(month_after);
 
         fileName = "Events/" + year_string + month_string + ".txt";
-        std::cout << fileName << std::endl;
     }
 
     file.open(fileName, std::ios::in | std::ios::out);
@@ -61,7 +58,6 @@ void InputOutputManager::DrawTextFromFile(int year, int month, int day, sf:: Fon
         std::string day_string = std::to_string(day);
 
         fileName = "Events/" + year_string + month_string + day_string + ".txt";
-        std::cout << fileName << std::endl;
     }
     else if (day == 0)
     {
@@ -75,7 +71,6 @@ void InputOutputManager::DrawTextFromFile(int year, int month, int day, sf:: Fon
         std::string month_string = std::to_string(month_before);
 
         fileName = "Events/" + year_string + month_string + ".txt";
-        std::cout << fileName << std::endl;
     }
     else if (day == 50)
     {
@@ -89,7 +84,6 @@ void InputOutputManager::DrawTextFromFile(int year, int month, int day, sf:: Fon
         std::string month_string = std::to_string(month_after);
 
         fileName = "Events/" + year_string + month_string + ".txt";
-        std::cout << fileName << std::endl;
     }
 
     sf::Text text;
@@ -177,7 +171,6 @@ std::string InputOutputManager::GetFileName(int year, int month, int day)
         std::string day_string = std::to_string(day);
 
         fileName = "Events/" + year_string + month_string + day_string + ".txt";
-        std::cout << fileName << std::endl;
     }
     else if (day == 0)
     {
@@ -191,7 +184,6 @@ std::string InputOutputManager::GetFileName(int year, int month, int day)
         std::string month_string = std::to_string(month_before);
 
         fileName = "Events/" + year_string + month_string + ".txt";
-        std::cout << fileName << std::endl;
     }
     else if (day == 50)
     {
@@ -205,7 +197,6 @@ std::string InputOutputManager::GetFileName(int year, int month, int day)
         std::string month_string = std::to_string(month_after);
 
         fileName = "Events/" + year_string + month_string + ".txt";
-        std::cout << fileName << std::endl;
     }
 
     return fileName;
