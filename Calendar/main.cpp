@@ -366,7 +366,7 @@ int main()
                     else
                         daysCount = 50;//otherwise, we set a placeholder
                 }
-                daysboxes.Update(window, daysCount, weekDay, maincolor, R, G, B, actualday, actualmonth, monthAndYear.GetMonth());
+                daysboxes.Update(window, daysCount, weekDay, maincolor, R, G, B, actualday, actualmonth, monthAndYear.GetMonth(), actualyear , monthAndYear.GetYear());
                 weekDay--;
 
                 if (daysboxes.isClick(window))

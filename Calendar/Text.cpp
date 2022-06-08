@@ -9,7 +9,7 @@ Text::Text(std::string textString, sf::Vector2f position, sf::Font &font, int fo
 	text.setPosition(position);
 }
 
-Text::Text(std::string textString, sf::Vector2f position, sf::Font &font, std::string coloredtextString, sf::Color maincolor, int fontSize)
+Text::Text(std::string textString, sf::Vector2f position, sf::Font &font, std::string colortextString, sf::Color maincolor, int fontSize)
 {
 	text.setFont(font);
 	text.setString(textString);
