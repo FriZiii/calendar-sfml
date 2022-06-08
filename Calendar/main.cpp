@@ -22,7 +22,7 @@
 #include <string>
 
 #pragma warning(disable : 4996)
-int WinMain()
+int main()
 {
     //Antialiasing
     sf::ContextSettings contextsettings;
@@ -97,7 +97,6 @@ int WinMain()
         int actualmonth = tm.tm_mon + 1;
         int actualyear = tm.tm_year + 1900;
         int actualday = tm.tm_mday;
-
     MonthAndYear monthAndYear(actualmonth, actualyear, font, maincolor);
 
     //Days of the week
@@ -320,6 +319,7 @@ int WinMain()
             for(int i = 0; i<11;i++)
                 marks_in_line[i] = 0;
             line = 0;
+            delete[] fileName;
         }
         // After clicking stop showing the add event button and stat showing submit_event button
         else if (addevent.IsHover(window) && isClicked && !submit_eventORcancel_Event)
@@ -366,7 +366,7 @@ int WinMain()
                     else
                         daysCount = 50;//otherwise, we set a placeholder
                 }
-                daysboxes.Update(window, daysCount, weekDay, maincolor, R, G, B);
+                daysboxes.Update(window, daysCount, weekDay, maincolor, R, G, B, actualday, actualmonth, monthAndYear.GetMonth());
                 weekDay--;
 
                 if (daysboxes.isClick(window))
@@ -374,7 +374,6 @@ int WinMain()
                     day = daysboxes.GetDay(window);
                 }
             }
-
             InputOutputManager input_output_manager;
             if (input_output_manager.foundFile(monthAndYear.GetYear(), monthAndYear.GetMonth(), day))
             {
@@ -478,7 +477,6 @@ int WinMain()
                 eventBackground.Draw(window);
                 delete_event.Draw(window);
                 output_manager.DrawTextFromFile(monthAndYear.GetYear(), monthAndYear.GetMonth(), day, Roboto_Mono_Bold, window, maincolor);
-                std::cout << day << std::endl;
             }
             // If you have not found the event file, show the option of adding an event
             else if (!show_Event && !submit_eventORcancel_Event && day != -1)
