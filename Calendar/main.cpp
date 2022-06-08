@@ -22,7 +22,7 @@
 #include <string>
 
 #pragma warning(disable : 4996)
-int main()
+int WinMain()
 {
     //Antialiasing
     sf::ContextSettings contextsettings;
@@ -42,7 +42,7 @@ int main()
     bool settings = false;
 
     bool show_Event = false;
-    bool subbmit_Event = false;
+    bool submit_eventORcancel_Event = false;
 
     int marks = 0;
     int max_marks = 0;
@@ -158,9 +158,9 @@ int main()
     CreateYourOwnColorButton buttoncolor(sf::Vector2f(1000, 380));
 
     //Credits
-    Logo antArmy(sf::Vector2f(1070.0f, 40.0f), sf::Vector2f(122, 111), "Assets/Ant_Army.png");
+    Logo antArmy(sf::Vector2f(1075.0f, 40.0f), sf::Vector2f(122, 111), "Assets/Ant_Army.png");
     std::vector<Text> creditsText;
-    creditsText.push_back(Text("Ant Army Productions", sf::Vector2f(345, 70), font, 43));
+    creditsText.push_back(Text("Ant Army Productions", sf::Vector2f(355, 70), font, 43));
     creditsText.push_back(Text("Project ", "leader ", "Mateusz Sawosz", sf::Vector2f(350, 170), font, maincolor, 33));
     creditsText.push_back(Text("Project ", "Assistant Madzia Szmatloch", sf::Vector2f(295, 230), font, maincolor, 33));
     creditsText.push_back(Text("UI/UX ", "Designer Mateusz Sawosz", sf::Vector2f(340, 290), font, maincolor, 33));
@@ -172,8 +172,9 @@ int main()
     TextInputDrawing textinputDrawing(Roboto_Mono_Regular, inputText);
 
     Button addevent(sf::Vector2f(945.0f, 500.0f), font, "ADD EVENT", true, maincolor);
-    Button submit(sf::Vector2f(945.0f, 500.0f), font, "SUBMIT", true, maincolor);
+    Button submit_event(sf::Vector2f(945.0f, 500.0f), font, "SUBMIT", true, maincolor);
     Button delete_event(sf::Vector2f(945.0f, 500.0f), font, "DELETE", true, maincolor);
+    Button cancel_event(sf::Vector2f(945.0f, 500.0f), font, "CANCEL", true, maincolor);
 
     SidePanel eventBackground(sf::Vector2f(286.0f, 367.0f), sf::Vector2f(914.0f, 130.0f), sf::Color(232, 232, 232));
     InputOutputManager output_manager;
@@ -210,7 +211,7 @@ int main()
             }
             
             //Text input
-            if (subbmit_Event)
+            if (submit_eventORcancel_Event)
             {
                 if (inputText == "")
                 {
@@ -320,14 +321,14 @@ int main()
                 marks_in_line[i] = 0;
             line = 0;
         }
-        // After clicking stop showing the add event button and stat showing submit button
-        else if (addevent.IsHover(window) && isClicked && !subbmit_Event)
+        // After clicking stop showing the add event button and stat showing submit_event button
+        else if (addevent.IsHover(window) && isClicked && !submit_eventORcancel_Event)
         {
-            subbmit_Event = true;
+            submit_eventORcancel_Event = true;
             isClicked = false;
         }
-        //After clicking save the text to file, delete_event the text and stop showing the submit button
-        else if (submit.IsHover(window) && isClicked && subbmit_Event && day != -1)
+        //After clicking save the text to file, delete_event the text and stop showing the submit_event button
+        else if (submit_event.IsHover(window) && isClicked && submit_eventORcancel_Event && day != -1 || cancel_event.IsHover(window) && isClicked && submit_eventORcancel_Event && day != -1)
         {
             if(inputText !="")
                 input_manager.SaveEventToFile(monthAndYear.GetYear(), monthAndYear.GetMonth(), day, inputText);
@@ -338,7 +339,7 @@ int main()
             for (int i = 0; i < 11; i++)
                 marks_in_line[i] = 0;
             line = 0;
-            subbmit_Event = false;
+            submit_eventORcancel_Event = false;
             isClicked = false;
         }
 
@@ -386,17 +387,21 @@ int main()
 
             rightbartext.Update(day, monthAndYear.GetMonthString(), right.GetSize(), right.GetPosition(), monthAndYear.GetMonthString_before(), monthAndYear.GetMonthString_after());
 
-            if (!show_Event && !subbmit_Event && day != -1)
+            if (!show_Event && !submit_eventORcancel_Event && day != -1)
             {
                 addevent.Update(window, maincolor);
             }
 
-            if (subbmit_Event && day != -1)
+            if (submit_eventORcancel_Event && day != -1)
             {
-                submit.Update(window, maincolor);
+                if (inputText == "")
+                    cancel_event.Update(window, maincolor);
+                else
+                    submit_event.Update(window, maincolor);
+
                 textinputDrawing.Update(inputText);
             }
-
+            
             if (show_Event)
             {
                 delete_event.Update(window, maincolor);
@@ -476,15 +481,19 @@ int main()
                 std::cout << day << std::endl;
             }
             // If you have not found the event file, show the option of adding an event
-            else if (!show_Event && !subbmit_Event && day != -1)
+            else if (!show_Event && !submit_eventORcancel_Event && day != -1)
             {
                 addevent.Draw(window);
             }
             //If you have entered an event, save it to a file
-            else if (subbmit_Event && day != -1)
+            else if (submit_eventORcancel_Event && day != -1)
             {
                 eventBackground.Draw(window);
-                submit.Draw(window);
+                if (inputText == "")
+                    cancel_event.Draw(window);
+                else
+                    submit_event.Draw(window);
+
                 textinputDrawing.Draw(window);
             }
 
