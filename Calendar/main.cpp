@@ -45,7 +45,7 @@ int main()
     bool submit_eventORcancel_Event = false;
 
     int marks = 0;
-    int max_marks = 0;
+    int total_marks = 0;
     int marks_in_line[11]{};
     int line = 0;
 
@@ -123,7 +123,7 @@ int main()
             }
             else
             {
-                daysCount = 50;//otherwise, we set a placeholder
+                daysCount = 50;//otherwise, we set a placeholder value
             }
 
             sf::Vector2f position(293.0f + (float)j * (68.0f + 20.0f), 151.0f + (float)i * 72.0f);
@@ -137,8 +137,8 @@ int main()
     RightBarText rightbartext(font);
 
     //ColorPallets
-    Text colorpalettesText("PICK YOUR ", sf::Vector2f(455.0f, 75.0f), font, "COLOR", maincolor, 40);
-    Text scrollbuttonText("or create your own", sf::Vector2f(470.0f, 230.0f), font, 40);
+    Text colorpalettesText("PICK YOUR ", "COLOR ", "", sf::Vector2f(455.0f, 75.0f), font, maincolor, 40);
+    Text scrollbuttonText("or create your own", sf::Vector2f(465.0f, 230.0f), font, 40);
 
     std::vector<ColorPalettes> colorpalettes;
     int k = 0;
@@ -215,9 +215,9 @@ int main()
                 if (inputText == "")
                 {
                     marks = 0;
-                    max_marks = 0;
+                    total_marks = 0;
                 }
-                if (event.type == sf::Event::TextEntered && max_marks <= 208)
+                if (event.type == sf::Event::TextEntered && total_marks <= 208)
                 {
                     if (std::isprint(event.text.unicode))
                     {
@@ -229,7 +229,7 @@ int main()
                         }
                         inputText += event.text.unicode;
                         marks++;
-                        max_marks++;
+                        total_marks++;
                         marks_in_line[line] = marks;
                     }
                 }
@@ -243,28 +243,28 @@ int main()
                             {
                                 line--;
                                 marks = marks_in_line[line];
+                                total_marks -= (19- marks_in_line[line]);
                             }
                             else
                             {
                                 marks--;
-                                max_marks--;
+                                total_marks--;
                                 marks_in_line[line]--;
                             }
                             inputText.pop_back();
                         }
                     }
-                    if (event.key.code == sf::Keyboard::Enter)
+                    if (event.key.code == sf::Keyboard::Enter && line < 10)
                     {
                         marks_in_line[line] = marks;
                         line++;
                         inputText += '\n';
-                        max_marks += (19 - marks);
+                        total_marks += (19 - marks);
                         marks = 0;
                     }
                 }
             }
         }
-
         //Updates
         for (Button& button : button)
             button.Update(window, maincolor);
@@ -314,7 +314,7 @@ int main()
 
             remove(fileName);
             inputText = "";
-            max_marks = 0;
+            total_marks = 0;
             marks = 0;
             for(int i = 0; i<11;i++)
                 marks_in_line[i] = 0;
@@ -327,14 +327,14 @@ int main()
             submit_eventORcancel_Event = true;
             isClicked = false;
         }
-        //After clicking save the text to file, delete_event the text and stop showing the submit_event button
+        //After clicking save the text to file delete_event the text and stop showing the submit_event button
         else if (submit_event.IsHover(window) && isClicked && submit_eventORcancel_Event && day != -1 || cancel_event.IsHover(window) && isClicked && submit_eventORcancel_Event && day != -1)
         {
             if(inputText !="")
                 input_manager.SaveEventToFile(monthAndYear.GetYear(), monthAndYear.GetMonth(), day, inputText);
 
             inputText = "";
-            max_marks = 0;
+            total_marks = 0;
             marks = 0;
             for (int i = 0; i < 11; i++)
                 marks_in_line[i] = 0;
@@ -364,7 +364,7 @@ int main()
                     if (daysCount < DaysCount(monthAndYear.GetMonth(), monthAndYear.GetYear()))//If the current day is less than the number of days in the month, we increase the next day
                         daysCount++;
                     else
-                        daysCount = 50;//otherwise, we set a placeholder
+                        daysCount = 50;//otherwise, we set a placeholder value
                 }
                 daysboxes.Update(window, daysCount, weekDay, maincolor, R, G, B, actualday, actualmonth, monthAndYear.GetMonth(), actualyear , monthAndYear.GetYear());
                 weekDay--;
@@ -408,11 +408,6 @@ int main()
         }
         if (!home && !credits && settings)
         {
-            if (scrollR.GetIterator() == 255 && scrollG.GetIterator() == 255 && scrollB.GetIterator() == 255)
-            {
-                std::cout << "Nie polecamy takiego koloru" << std::endl;
-            }
-
             for (ColorPalettes & colorpalettes : colorpalettes)
             {
                 colorpalettes.Update(window);
@@ -431,9 +426,16 @@ int main()
 
            if (buttoncolor.isHover(window) && isClicked)
            {
-               R = scrollR.GetIterator();
-               G = scrollG.GetIterator();
-               B = scrollB.GetIterator();
+               if ((scrollR.GetIterator() == 255 && scrollG.GetIterator() == 255 && scrollB.GetIterator() == 255) || (scrollR.GetIterator() == 0 && scrollG.GetIterator() == 0 && scrollB.GetIterator() == 0))
+               {
+                   std::cout << "Nie polecamy takiego koloru" << std::endl;
+               }
+               else
+               {
+                   R = scrollR.GetIterator();
+                   G = scrollG.GetIterator();
+                   B = scrollB.GetIterator();
+               }
            }
 
            maincolor = sf::Color(R, G, B);

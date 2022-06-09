@@ -15,7 +15,6 @@ class Text
 public:
 	//For settings
 	Text(std::string textString, sf::Vector2f position, sf::Font &font, int fontSize);
-	Text(std::string textString, sf::Vector2f position, sf::Font &font, std::string coloredtextString, sf::Color maincolor, int fontSize);
 
 	//For credits
 	Text(std::string coloredtextString, std::string textString, sf::Vector2f position, sf::Font& font, sf::Color maincolor, int fontSize);
