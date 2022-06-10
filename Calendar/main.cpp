@@ -30,6 +30,7 @@ int main()
 
     //Window
     sf::RenderWindow window(sf::VideoMode(1200, 610), "Calendar", 4U, contextsettings);
+    window.setFramerateLimit(60);
 
     //Icon of window
     sf::Image windowIcon;
@@ -52,6 +53,7 @@ int main()
     bool isClicked = false;
 
     std::string inputText{};
+    sf::Clock clockCursor;
 
     std::fstream file;
     file.open("Startup/settings.txt", std::ios::in);
@@ -265,6 +267,8 @@ int main()
                 }
             }
         }
+
+
         //Updates
         for (Button& button : button)
             button.Update(window, maincolor);
@@ -398,7 +402,7 @@ int main()
                 else
                     submit_event.Update(window, maincolor);
 
-                textinputDrawing.Update(inputText);
+                textinputDrawing.Update(inputText, clockCursor);
             }
             
             if (show_Event)

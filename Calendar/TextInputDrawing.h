@@ -1,5 +1,6 @@
 #pragma once
 #include <SFML/Graphics.hpp>
+#include <iostream>
 class TextInputDrawing
 {
 	sf::Text text;
@@ -8,10 +9,12 @@ class TextInputDrawing
 	std::string textString;
 
 	int marks;
-	static bool show_cursor;
+	sf::Time elapsed;
+
 public:
+	bool show_cursor;
 	TextInputDrawing(sf::Font font, std::string textString);
-	void Update(std::string textString);
+	void Update(std::string textString, sf::Clock &cursorClock);
 	void Draw(sf::RenderWindow& window) { window.draw(text); };
 };
 

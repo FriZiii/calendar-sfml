@@ -1,1 +1,13 @@
-﻿  Calendar.vcxproj -> E:\Calendar\Calendar\x64\Debug\Calendar.exe
+﻿  Button.cpp
+  ColorPalettes.cpp
+  DaysBoxes.cpp
+  InputOutputManager.cpp
+  MonthAndYear.cpp
+  RightBarText.cpp
+  Text.cpp
+  TextInputDrawing.cpp
+  main.cpp
+  Generowanie kodu...
+E:\Calendar\Calendar\Calendar\DaysBoxes.cpp(114): warning C4715: "DaysBoxes::GetDay”: niewszystkie ścieżki kodu zwracają wartość
+E:\Calendar\Calendar\Calendar\DaysBoxes.cpp(103): warning C4715: "DaysBoxes::isClick”: niewszystkie ścieżki kodu zwracają wartość
+  Calendar.vcxproj -> E:\Calendar\Calendar\x64\Debug\Calendar.exe
