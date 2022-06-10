@@ -14,7 +14,7 @@ class TextInputDrawing
 public:
 	bool show_cursor;
 	TextInputDrawing(sf::Font font, std::string textString);
-	void Update(std::string textString, sf::Clock &cursorClock);
+	void Update(std::string textString, sf::Clock &cursorClock, int total_marks);
 	void Draw(sf::RenderWindow& window) { window.draw(text); };
 };
 

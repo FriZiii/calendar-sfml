@@ -1,8 +1,7 @@
-﻿  TextInputDrawing.cpp
-  main.cpp
+﻿  main.cpp
   Trwa generowanie kodu
-  1 of 582 functions ( 0.2%) were compiled, the rest were copied from previous compilation.
+  2 of 582 functions ( 0.3%) were compiled, the rest were copied from previous compilation.
     0 functions were new in current compilation
-    72 functions had inline decision re-evaluated but remain unchanged
+    11 functions had inline decision re-evaluated but remain unchanged
   Zakończono generowanie kodu
   Calendar.vcxproj -> E:\Calendar\Calendar\x64\Release\Calendar.exe

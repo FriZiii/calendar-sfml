@@ -188,6 +188,7 @@ int main()
         sf::Event event;
         while (window.pollEvent(event))
         {
+            //Close and clicking events
             if (event.type == sf::Event::Closed)
             {
                 std::ofstream ofs;
@@ -211,7 +212,7 @@ int main()
                 isClicked = false;
             }
             
-            //Text input
+            //Text input event
             if (submit_eventORcancel_Event)
             {
                 if (inputText == "")
@@ -267,7 +268,6 @@ int main()
                 }
             }
         }
-
 
         //Updates
         for (Button& button : button)
@@ -402,7 +402,7 @@ int main()
                 else
                     submit_event.Update(window, maincolor);
 
-                textinputDrawing.Update(inputText, clockCursor);
+                textinputDrawing.Update(inputText, clockCursor, total_marks);
             }
             
             if (show_Event)
